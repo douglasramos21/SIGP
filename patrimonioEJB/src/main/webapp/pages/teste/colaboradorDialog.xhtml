@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+	
+		<p:dialog id="dialogColaborador" widgetVar="dialogColaboradorVar" height="400" width="800" showEffect="explode" hideEffect="puff" modal="true">
+
+			<p:dataTable id="dtbColaborador" widgetVar="dtbColaboradorVar" var="colaborador" value="#{colaboradorViewMB.listColaboradores}" paginator="true" 
+							filteredValue="#{colaboradorViewMB.listColaboradores}" selection="#{colaboradorViewMB.colaborador}" binding="#{colaboradorViewMB.dtbColaborador}"
+							selectionMode="single" rowKey="#{colaborador.id}">
+
+				<p:ajax event="rowDblselect" listener="#{colaboradorViewMB.preencheObjeto}" oncomplete="dialogColaboradorVar.hide();" process="@this"
+				 							update=":formColaborador:masterDetail, 
+											:formColaborador:tabViewColaboradorView:tabColaboradorDependenteView,
+											:formColaborador:tabViewColaboradorView:tabColaboradorDocumentoView,
+											:formColaborador:tabViewColaboradorView:tabColaboradorEnderecoView" />
+											
+				<p:column filterBy="#{colaborador.id}" sortBy="#{colaborador.id}">
+					<f:facet name="header">
+						<h:outputText value="ID" />
+					</f:facet>
+					<h:outputText value="#{colaborador.id}" />
+				</p:column>
+
+				<p:column filterBy="#{colaborador.nome}" sortBy="#{colaborador.nome}">
+					<f:facet name="header">
+						<h:outputText value="Nome" />
+					</f:facet>
+					<h:outputText value="#{colaborador.nome}" />
+				</p:column>
+
+			</p:dataTable>
+		</p:dialog>
+        
+</ui:composition>

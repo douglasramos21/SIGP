@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<persistence version="2.0" xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+
+
+	<persistence-unit name="patrimonioPU" transaction-type="JTA">
+
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<jta-data-source>java:jboss/datasources/postgresDS</jta-data-source>
+		<!-- <non-jta-data-source>java:jboss/datasources/postgresDS</non-jta-data-source> -->
+
+		<class>com.patrimonio.model.Agencia</class>
+		<class>com.patrimonio.model.Banco</class>
+		<class>com.patrimonio.model.Cargo</class>
+		<class>com.patrimonio.model.CentroCusto</class>
+		<class>com.patrimonio.model.Colaborador</class>
+		<class>com.patrimonio.model.ColaboradorAgenciaConta</class>
+		<class>com.patrimonio.model.ColaboradorDependente</class>
+		<class>com.patrimonio.model.ColaboradorDocumento</class>
+		<class>com.patrimonio.model.ColaboradorEndereco</class>
+		<class>com.patrimonio.model.ColaboradorHorario</class>
+		<class>com.patrimonio.model.ColaboradorRelacao</class>
+		<class>com.patrimonio.model.ColaboradorSituacao</class>
+		<class>com.patrimonio.model.ColaboradorSituacaoLicenca</class>
+		<class>com.patrimonio.model.Competencia</class>
+		<class>com.patrimonio.model.Empresa</class>
+		<class>com.patrimonio.model.EstadoCivil</class>
+		<class>com.patrimonio.model.Filiacao</class>
+		<class>com.patrimonio.model.GrauInstrucao</class>
+		<class>com.patrimonio.model.Lotacao</class>
+		<class>com.patrimonio.model.Moeda</class>
+		<class>com.patrimonio.model.Nacionalidade</class>
+		<class>com.patrimonio.model.PlanoCargo</class>
+		<class>com.patrimonio.model.Profissao</class>
+		<class>com.patrimonio.model.Provincia</class>
+		<class>com.patrimonio.model.Setor</class>
+		<class>com.patrimonio.model.TipoDocumento</class>
+		<class>com.patrimonio.model.TipoHorario</class>
+		<class>com.patrimonio.model.TipoLicenca</class>
+		<class>com.patrimonio.model.TipoVisto</class>
+		<class>com.patrimonio.model.User</class>
+
+
+		<properties>
+			<!-- <property name="javax.persistence.jdbc.driver" value="org.postgresql.Driver" /> 
+			<property name="javax.persistence.jdbc.url" value="jdbc:postgresql://localhost:5432/postgres" /> 
+			<property name="javax.persistence.jdbc.user" value="postgres" /> 
+			<property name="javax.persistence.jdbc.password" value="admin" /> -->
+			<property name="hibernate.show_sql" value="false" />
+			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
+			<property name="hibernate.transaction.jta.platform" value="org.hibernate.service.jta.platform.internal.JBossAppServerJtaPlatform" />
+			<property name="hibernate.enable_lazy_load_no_trans" value="true" />
+			
+		</properties>
+
+	</persistence-unit>
+
+</persistence>

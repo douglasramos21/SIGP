@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+
+
+	<p:fieldset toggleable="true" toggleSpeed="500" legend="Endereços">
+
+		<h:form id="formColaboradorEnderecos">
+
+			<p:growl id="msgEndereco" showDetail="true" />
+			<p:dataTable var="endereco" value="#{colaboradorViewMB.colaborador.enderecos}" id="enderecos" editable="false" lazy="true" style="width: 65%">
+
+				<f:facet name="header">  
+            			Endereços 
+       				</f:facet>
+
+				<p:column headerText="Tipo Endereço" style="width:15%">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{endereco.tipoEnderecoFormatado}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{endereco.tipoEnderecoFormatado}" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column headerText="Endereço" style="width:40%">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{endereco.endereco}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{endereco.endereco}" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column headerText="Província" style="width:10%">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{endereco.provincia.nome}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{endereco.provincia.nome}" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+			</p:dataTable>
+		</h:form>
+
+	</p:fieldset>
+
+	<p:fieldset toggleable="true" toggleSpeed="500" legend="Eletrônico">
+		<div class="org-form">
+			<h:outputLabel styleClass="labelForm" value="E-mail " />
+			<p:spacer styleClass="spacerForm" />
+			<p:inputText id="email" value="#{colaboradorViewMB.colaborador.email}" disabled="true">
+				<p:ajax event="blur" update="msgEmail" />
+			</p:inputText>
+			<p:message id="msgEmail" for="email" display="icon" />
+		</div>
+
+		<div class="org-form">
+			<h:outputLabel styleClass="labelForm" value="Skype " />
+			<p:spacer styleClass="spacerForm" />
+			<p:inputText id="skype" value="#{colaboradorViewMB.colaborador.skype}" disabled="true">
+				<p:ajax event="blur" update="msgSkype" />
+			</p:inputText>
+			<p:message id="msgSkype" for="skype" display="icon" />
+		</div>
+	</p:fieldset>
+
+
+</ui:composition>

@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<h:outputScript name="scripts.js" library="js" />
+	<h:outputStylesheet name="cssBasico.css" library="css" />
+</h:head>
+
+<h:body>
+	<h:form id="form" prependId="false">
+		<div class="barraVertical barraTitulo" style="display: table; height: 100%; width: 100%">
+			<p:growl id="messages" />
+
+			<p:menubar>
+				<p:submenu label="File" icon="ui-icon-document">
+					<p:submenu label="New" icon="ui-icon-contact">
+						<p:menuitem value="Cadastro Colaborador" onclick="loadPage('/patrimonioEJB/pages/master/colaboradorMaster.xhtml')" />
+					</p:submenu>
+					<p:menuitem value="Open" url="#" />
+					<p:separator />
+					<p:menuitem value="Quit" action="#{loginMB.logout}" ajax="false" />
+				</p:submenu>
+
+				<p:submenu label="Edit" icon="ui-icon-pencil">
+					<p:menuitem value="Undo" url="#" icon="ui-icon-arrowreturnthick-1-w" />
+					<p:menuitem value="Redo" url="#" icon="ui-icon-arrowreturnthick-1-e" />
+				</p:submenu>
+
+				<p:submenu label="Help" icon="ui-icon-help">
+					<p:menuitem value="Contents" url="#" />
+					<p:submenu label="Search" icon="ui-icon-search">
+						<p:submenu label="Text">
+							<p:menuitem value="Workspace" url="#" />
+						</p:submenu>
+						<p:menuitem value="File" url="#" />
+					</p:submenu>
+				</p:submenu>
+
+				<p:submenu label="Actions" icon="ui-icon-gear">
+					<p:submenu label="Ajax" icon="ui-icon-refresh">
+						<p:menuitem value="Save" actionListener="#{menuBean.save}" icon="ui-icon-disk" update="messages" />
+						<p:menuitem value="Update" actionListener="#{menuBean.update}" icon="ui-icon-arrowrefresh-1-w" update="messages" />
+					</p:submenu>
+					<p:submenu label="Non-Ajax" icon="ui-icon-newwin">
+						<p:menuitem value="Delete" actionListener="#{menuBean.delete}" icon="ui-icon-close" update="messages" ajax="false" />
+					</p:submenu>
+				</p:submenu>
+
+				<p:menuitem value="Quit" icon="ui-icon-close" action="#{loginMB.logout}" ajax="false" />
+
+			</p:menubar>
+		</div>
+
+		<table>
+			<tr>
+				<td class="contentBackground" style="vertical-align: top; margin-top: 2px; display: table; height: 100%; width: 100%; position: absolute;">
+				
+					<h:panelGroup id="pGroup">
+					</h:panelGroup> 
+					
+					<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();" /> <p:dialog modal="true" widgetVar="statusDialog" header="Status" draggable="false" closable="false">
+						<p:graphicImage value="/resources/images/ajax-loader-bar.gif" />
+					</p:dialog></td>
+			</tr>
+		</table>
+	</h:form>
+</h:body>
+</html>

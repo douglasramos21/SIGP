@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+
+
+	<p:fieldset toggleable="true" toggleSpeed="500" legend="" >
+
+		<p:dataTable var="endereco" value="#{colaboradorViewMB.listaEnderecos}" id="enderecos" editable="true" lazy="true" style="width: 65%">
+
+			<p:ajax event="rowEditCancel" listener="#{colaboradorViewMB.removeEnderecoRow}" update="@this" process="@this"/>
+			<p:ajax event="rowEdit" listener="#{colaboradorViewMB.removeEnderecoRow}" update="@this" process="@this"/>
+
+			<f:facet name="header">
+            			Endereços 
+       		</f:facet>
+
+			<p:column headerText="Tipo Endereço" style="width:15%">
+				<p:cellEditor>
+					<f:facet name="output">
+						<h:outputText value="#{endereco.tipoEnderecoFormatado}" />
+					</f:facet>
+					<f:facet name="input">
+						<h:selectOneMenu id="tipoEnderecoCad" value="#{endereco.tipoEndereco}">
+							<f:selectItem itemLabel="Local" itemValue="L" />
+							<f:selectItem itemLabel="Origem" itemValue="O" />
+						</h:selectOneMenu>
+					</f:facet>
+				</p:cellEditor>
+			</p:column>
+
+			<p:column headerText="Endereço" style="width:40%">
+				<p:cellEditor>
+					<f:facet name="output">
+						<h:outputText value="#{endereco.endereco}" />
+					</f:facet>
+					<f:facet name="input">
+						<p:inputText id="enderecoCad" value="#{endereco.endereco}" styleClass="inputLarge"/>
+					</f:facet>
+				</p:cellEditor>
+			</p:column>
+
+			<p:column headerText="Província" style="width:10%">
+				<p:cellEditor>
+					<f:facet name="output">
+						<h:outputText value="#{endereco.provincia.nome}" />
+					</f:facet>
+					<f:facet name="input">
+						<h:selectOneMenu value="#{endereco.provincia}" converter="com.patrimonio.converter.SelectOneMenuConverter">
+							<f:selectItems value="#{colaboradorViewMB.listProvincia}" var="provincia" itemValue="#{provincia}" itemLabel="#{provincia.nome}" />
+						</h:selectOneMenu>
+					</f:facet>
+				</p:cellEditor>
+			</p:column>
+
+			<p:column style="width: 10%">
+				<f:facet name="header">
+					<p:commandButton actionListener="#{colaboradorViewMB.removeEnderecoRow}" action="#{colaboradorViewMB.addEnderecoRow}" 
+									oncomplete="editTableRow($('#tabViewColaboradorCad\\:enderecos'))"
+									icon="ui-icon-circle-plus" update="enderecos" process="@this" 
+									style="background: none repeat scroll 0 0 transparent; border: medium none;">
+					</p:commandButton> 
+				</f:facet>
+				<p:rowEditor />
+			</p:column>
+		</p:dataTable>
+
+	</p:fieldset>
+
+	<p:fieldset toggleable="true" toggleSpeed="500" legend="Eletrônico">
+		<div class="org-form">
+			<h:outputLabel styleClass="labelForm" value="E-mail " />
+			<p:spacer styleClass="spacerForm" />
+			<p:inputText id="emailCad" value="#{colaboradorViewMB.colaborador.email}">
+				<p:ajax event="blur" update="msgEmailCad" />
+			</p:inputText>
+			<p:message id="msgEmailCad" for="emailCad" display="icon" />
+		</div>
+
+		<div class="org-form">
+			<h:outputLabel styleClass="labelForm" value="Skype " />
+			<p:spacer styleClass="spacerForm" />
+			<p:inputText id="skypeCad" value="#{colaboradorViewMB.colaborador.skype}">
+				<p:ajax event="blur" update="msgSkypeCad" />
+			</p:inputText>
+			<p:message id="msgSkypeCad" for="skypeCad" display="icon" />
+		</div>
+	</p:fieldset>
+
+
+</ui:composition>

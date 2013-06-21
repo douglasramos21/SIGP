@@ -1,0 +1,20 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+
+
+		<p:tabView id="tabViewColaboradorCad" effect="fade" effectDuration="fast" dynamic="true">
+			<p:tab title="Horário" id="tabColaboradorHorarioCad">
+				<ui:include src="/pages/cad/colaborador/colaboradorHorarioIncludeCad.xhtml" />
+			</p:tab>
+			<p:tab title="Endereços" id="tabColaboradorEnderecoCad">
+				<ui:include src="/pages/cad/colaborador/colaboradorEnderecoIncludeCad.xhtml" />
+			</p:tab>
+			<p:tab title="Dependentes" id="tabColaboradorDependenteCad">
+				<ui:include src="/pages/cad/colaborador/colaboradorDependenteIncludeCad.xhtml" />
+			</p:tab>
+			<p:tab title="Documentos" id="tabColaboradorDocumentoCad">
+				<ui:include src="/pages/cad/colaborador/colaboradorDocumentoIncludeCad.xhtml" />
+			</p:tab>
+		</p:tabView>
+
+</ui:composition>

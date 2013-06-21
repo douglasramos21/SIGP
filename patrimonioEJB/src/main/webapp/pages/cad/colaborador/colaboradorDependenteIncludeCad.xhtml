@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+
+	<p:fieldset toggleable="true" toggleSpeed="500" legend="Filição">
+		<div class="org-form">
+			<h:outputLabel styleClass="labelForm" value="Nome da Mãe " />
+			<p:spacer styleClass="spacerForm" />
+			<p:inputText id="nomeMae" value="#{colaboradorViewMB.colaborador.nomeMae}" styleClass="inputLarge" />
+		</div>
+
+		<div class="org-form">
+			<h:outputLabel styleClass="labelForm" value="Nome da Pai " />
+			<p:spacer styleClass="spacerForm" />
+			<p:inputText id="nomePai" value="#{colaboradorViewMB.colaborador.nomePai}" styleClass="inputLarge" />
+		</div>
+
+		<div class="org-form">
+			<h:outputLabel styleClass="labelForm" value="Nome da Cônjugue " />
+			<p:spacer styleClass="spacerForm" />
+			<p:inputText id="nomeConjugue" value="#{colaboradorViewMB.colaborador.nomeConjugue}" styleClass="inputLarge" />
+		</div>
+	</p:fieldset>
+
+	<p:fieldset toggleable="true" toggleSpeed="500" legend="">
+
+		<p:dataTable var="dependente" value="#{colaboradorViewMB.listaDependentes}" id="dependentes" editable="true" lazy="true" style="width: 75%">
+
+			<p:ajax event="rowEditCancel" listener="#{colaboradorViewMB.removeDependenteRow}" update="@this" process="@this" />
+			<p:ajax event="rowEdit" listener="#{colaboradorViewMB.removeDependenteRow}" update="@this" process="@this" />
+
+
+			<f:facet name="header">
+            		Dependentes 
+       			</f:facet>
+
+			<p:column headerText="Nome do Dependente" style="width:40%">
+				<p:cellEditor>
+					<f:facet name="output">
+						<h:outputText value="#{dependente.nome}" />
+					</f:facet>
+					<f:facet name="input">
+						<p:inputText value="#{dependente.nome}" styleClass="inputLarge" />
+					</f:facet>
+				</p:cellEditor>
+			</p:column>
+
+			<p:column headerText="Filiação" style="width:10%">
+				<p:cellEditor>
+					<f:facet name="output">
+						<h:outputText value="#{dependente.filiacao.nome}" />
+					</f:facet>
+					<f:facet name="input">
+						<h:selectOneMenu id="filiacaoCad" value="#{dependente.filiacao}" converter="com.patrimonio.converter.SelectOneMenuConverter">
+							<f:selectItems value="#{colaboradorViewMB.listFiliacao}" var="filiacao" itemValue="#{filiacao}" itemLabel="#{filiacao.nome}" />
+						</h:selectOneMenu>
+					</f:facet>
+				</p:cellEditor>
+			</p:column>
+
+			<p:column headerText="Sexo" style="width:10%">
+				<p:cellEditor>
+					<f:facet name="output">
+						<h:outputText value="#{dependente.sexoFormatado}" />
+					</f:facet>
+					<f:facet name="input">
+						<h:selectOneMenu id="sexoCad" value="#{dependente.sexo}">
+							<f:selectItem itemLabel="Masculino" itemValue="M" />
+							<f:selectItem itemLabel="Feminino" itemValue="F" />
+						</h:selectOneMenu>
+					</f:facet>
+				</p:cellEditor>
+			</p:column>
+
+			<p:column headerText="Data Nascimento" style="width:15%">
+				<p:cellEditor>
+					<f:facet name="output">
+						<h:outputText value="#{dependente.dataNascimentoFormatada}" />
+					</f:facet>
+					<f:facet name="input">
+						<p:calendar styleClass="inputSmall" value="#{dependente.dataNascimento}" locale="pt" showButtonPanel="true" navigator="true" id="dataNascimento" pattern="dd/MM/yyyy" effect="slide" />
+					</f:facet>
+				</p:cellEditor>
+			</p:column>
+
+			<p:column style="width:10%" >
+					<f:facet name="header">
+							<p:commandButton actionListener="#{colaboradorViewMB.removeDependenteRow}" action="#{colaboradorViewMB.addDependenteRow}" 
+											oncomplete="editTableRow($('#tabViewColaboradorCad\\:dependentes'))" 
+											icon="ui-icon-circle-plus" update="dependentes" process="@this" 
+											style="background: none repeat scroll 0 0 transparent; border: medium none;" />
+					</f:facet>
+					<p:rowEditor />
+			</p:column>
+		</p:dataTable>
+
+	</p:fieldset>
+
+</ui:composition>

@@ -1,0 +1,84 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:pe="http://primefaces.org/ui/extensions">
+	
+	
+		<p:fieldset toggleable="true" toggleSpeed="500"  >
+			<div class="org-form">
+				<h:outputLabel styleClass="labelForm" value="Horário: " />
+				<p:spacer styleClass="spacerForm" />
+				<p:selectOneMenu id="tipoHorario" disabled="true" binding="#{colaboradorViewMB.ddlTipoHorario}">
+					<f:selectItems value="#{colaboradorViewMB.listTipoHorario}" var="tipoHorario" itemLabel="#{tipoHorario.nome}" itemValue="#{tipoHorario.id}"/>
+				</p:selectOneMenu>
+				<p:message id="msgTipoHorario" for="tipoHorario" display="icon" />
+			</div>
+	
+				<h:panelGrid columns="2" cellpadding="0" cellspacing="2">
+				
+							<h:panelGroup>
+								<div class="org-form">
+									<h:outputLabel styleClass="labelForm" value="Manhã Entrada: " />
+									<p:spacer styleClass="spacerForm" />
+									<p:inputText id="horaManhaInicio" value="#{colaboradorViewMB.colaborador.horaManhaInicio}" disabled="true" styleClass="inputSmall">
+										<f:convertDateTime pattern="HH:mm" timeStyle="default" type="time" timeZone="GMT+1"/>
+									</p:inputText>
+									<p:message id="msgHoraManhaInicio" for="horaManhaInicio" display="icon" />
+								</div>
+							</h:panelGroup>
+							<h:panelGroup>
+								<div class="org-form">
+									<h:outputLabel styleClass="labelForm" value="Manhã Saída: " />
+									<p:spacer styleClass="spacerForm" />
+									<p:inputText id="horaManhaFim" value="#{colaboradorViewMB.colaborador.horaManhaFim}" disabled="true" styleClass="inputSmall">
+										<f:convertDateTime pattern="HH:mm" timeStyle="default" type="time" timeZone="GMT+1"/>
+									</p:inputText>
+									<p:message id="msgHoraManhaFim" for="horaManhaFim" display="icon" />
+								</div>
+							</h:panelGroup>
+							<h:panelGroup>
+								<div class="org-form">
+									<h:outputLabel styleClass="labelForm" value="Tarde Entrada: " />
+									<p:spacer styleClass="spacerForm" />
+									<p:inputText id="horaTardeInicio" value="#{colaboradorViewMB.colaborador.horaTardeInicio}" disabled="true" styleClass="inputSmall">
+										<f:convertDateTime pattern="HH:mm" timeStyle="default" type="time" timeZone="GMT+1"/>
+									</p:inputText>
+									<p:message id="msgHoraTardeInicio" for="horaTardeInicio" display="icon" />
+								</div>
+							</h:panelGroup>
+							<h:panelGroup>
+								<div class="org-form">
+									<h:outputLabel styleClass="labelForm" value="Tarde Saída: " />
+									<p:spacer styleClass="spacerForm" />
+									<p:inputText id="horaTardeFim" value="#{colaboradorViewMB.colaborador.horaTardeFim}" disabled="true" styleClass="inputSmall">
+										<f:convertDateTime pattern="HH:mm" timeStyle="default" type="time" timeZone="GMT+1"/>
+									</p:inputText>
+									<p:message id="msgHoraTardeFim" for="horaTardeFim" display="icon" />
+								</div>
+							</h:panelGroup>
+							<h:panelGroup>
+								<div class="org-form">
+									<h:outputLabel styleClass="labelForm" value="Noite Entrada: " />
+									<p:spacer styleClass="spacerForm" />
+									<p:inputText id="horaNoiteInicio" value="#{colaboradorViewMB.colaborador.horaNoiteInicio}" disabled="true" styleClass="inputSmall">
+										<f:convertDateTime pattern="HH:mm" timeStyle="default" type="time" timeZone="GMT+1"/>
+									</p:inputText>
+									<p:message id="msgHoraNoiteInicio" for="horaNoiteInicio" display="icon" />
+								</div>
+							</h:panelGroup>
+							<h:panelGroup>
+								<div class="org-form">
+									<h:outputLabel styleClass="labelForm" value="Noite Saída: " />
+									<p:spacer styleClass="spacerForm" />
+									<p:inputText id="horaNoiteFim" value="#{colaboradorViewMB.colaborador.horaNoiteFim}" disabled="true" styleClass="inputSmall">
+										<f:convertDateTime pattern="HH:mm" timeStyle="default" type="time" timeZone="GMT+1"/>
+									</p:inputText>
+									<p:message id="msgHoraNoiteFim" for="horaNoiteFim" display="icon" />
+								</div>
+							</h:panelGroup>
+			</h:panelGrid>							
+		</p:fieldset>
+</ui:composition>

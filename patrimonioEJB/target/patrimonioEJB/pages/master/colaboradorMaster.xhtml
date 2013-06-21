@@ -1,0 +1,23 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui" xmlns:pe="http://primefaces.org/ui/extensions">
+
+	<h:form id="formColaborador" prependId="false">
+
+		<pe:masterDetail id="masterDetail" selectLevelListener="#{selectLevelListener.handleNavigation}" showAllBreadcrumbItems="true">
+			<f:facet name="header">
+				<p:messages showDetail="false" showSummary="true" />
+			</f:facet>
+
+			<pe:masterDetailLevel level="1" contextVar="view" levelLabel="View">
+				<ui:include src="/pages/view/colaborador/colaboradorView.xhtml"></ui:include>
+			</pe:masterDetailLevel>
+
+			<pe:masterDetailLevel level="2" contextVar="cad" levelLabel="Edição">
+				<ui:include src="/pages/cad/colaborador/colaboradorCad.xhtml"></ui:include>
+			</pe:masterDetailLevel>
+
+
+
+		</pe:masterDetail>
+	</h:form>
+</ui:composition>

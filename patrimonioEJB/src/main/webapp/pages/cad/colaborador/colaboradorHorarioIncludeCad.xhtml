@@ -1,0 +1,93 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" 
+xmlns:h="http://java.sun.com/jsf/html" 
+xmlns:f="http://java.sun.com/jsf/core" 
+xmlns:ui="http://java.sun.com/jsf/facelets" 
+xmlns:p="http://primefaces.org/ui" 
+xmlns:pe="http://primefaces.org/ui/extensions">
+
+
+	<p:fieldset toggleable="true" toggleSpeed="500" legend="Horario">
+		<div class="org-form">
+			<h:outputLabel styleClass="labelForm" value="Horário: "/>
+			<p:spacer styleClass="spacerForm" />
+			<p:selectOneMenu id="tipoHorario" value="#{colaboradorViewMB.colaborador.tipoHorario}" converter="com.patrimonio.converter.SelectOneMenuConverter">
+				<f:selectItems value="#{colaboradorViewMB.listTipoHorario}" var="tipoHorario" itemLabel="#{tipoHorario.nome}" itemValue="#{tipoHorario}"/>
+				<f:event listener="#{colaboradorViewMB.changeHorario()}" type="preRenderComponent"/>
+				<p:ajax listener="#{colaboradorViewMB.changeHorario()}" event="change" 
+						update="horaManhaInicio, horaManhaFim, horaTardeInicio, horaTardeFim, horaNoiteInicio, horaNoiteFim"/>
+			</p:selectOneMenu>
+			<p:message id="msgTipoHorario" for="tipoHorario" display="icon" />
+		</div>
+
+		<h:panelGrid columns="2" cellpadding="0" cellspacing="2">
+
+			<h:panelGroup>
+				<div class="org-form">
+					<h:outputLabel styleClass="labelForm" value="Manhã Entrada: "/>
+					<p:spacer styleClass="spacerForm" />
+					<p:calendar id="horaManhaInicio" value="#{colaboradorViewMB.colaborador.horaManhaInicio}" 
+								pattern="HH:mm" timeOnly="true" styleClass="calendarSmall" readonlyInput="true" timeZone="GMT+1" locale="pt" binding="#{colaboradorViewMB.calDiaIni}" disabled="true">
+						<f:converter converterId="com.patrimonio.converter.TimeConverter"/>
+					</p:calendar>
+					<p:message id="msgHoraManhaInicio" for="horaManhaInicio" display="icon" />
+				</div>
+			</h:panelGroup>
+			<h:panelGroup>
+				<div class="org-form">
+					<h:outputLabel styleClass="labelForm" value="Manhã Saída: " />
+					<p:spacer styleClass="spacerForm" />
+					<p:calendar id="horaManhaFim" value="#{colaboradorViewMB.colaborador.horaManhaFim}" 
+								pattern="HH:mm" timeOnly="true" styleClass="calendarSmall" readonlyInput="true" timeZone="GMT+1" locale="pt" binding="#{colaboradorViewMB.calDiaFim}" disabled="true">
+						<f:converter converterId="com.patrimonio.converter.TimeConverter"/>
+					</p:calendar>
+					<p:message id="msgHoraManhaFim" for="horaManhaFim" display="icon" />
+				</div>
+			</h:panelGroup>
+			<h:panelGroup>
+				<div class="org-form">
+					<h:outputLabel styleClass="labelForm" value="Tarde Entrada: " />
+					<p:spacer styleClass="spacerForm" />
+					<p:calendar id="horaTardeInicio" value="#{colaboradorViewMB.colaborador.horaTardeInicio}"  
+								pattern="HH:mm" timeOnly="true" styleClass="calendarSmall" readonlyInput="true" timeZone="GMT+1" locale="pt" binding="#{colaboradorViewMB.calTardeIni}" disabled="true">
+						<f:converter converterId="com.patrimonio.converter.TimeConverter"/>
+					</p:calendar>
+					<p:message id="msgHoraTardeInicio" for="horaTardeInicio" display="icon" />
+				</div>
+			</h:panelGroup>
+			<h:panelGroup>
+				<div class="org-form">
+					<h:outputLabel styleClass="labelForm" value="Tarde Saída: " />
+					<p:spacer styleClass="spacerForm" />
+					<p:calendar id="horaTardeFim" value="#{colaboradorViewMB.colaborador.horaTardeFim}" 
+								pattern="HH:mm" timeOnly="true" styleClass="calendarSmall" readonlyInput="true" timeZone="GMT+1" locale="pt" binding="#{colaboradorViewMB.calTardeFim}" disabled="true">
+						<f:converter converterId="com.patrimonio.converter.TimeConverter"/>
+					</p:calendar>
+					<p:message id="msgHoraTardeFim" for="horaTardeFim" display="icon" />
+				</div>
+			</h:panelGroup>
+			<h:panelGroup>
+				<div class="org-form">
+					<h:outputLabel styleClass="labelForm" value="Noite Entrada: " />
+					<p:spacer styleClass="spacerForm" />
+					<p:calendar id="horaNoiteInicio" value="#{colaboradorViewMB.colaborador.horaNoiteInicio}" 
+								pattern="HH:mm" timeOnly="true" styleClass="calendarSmall" readonlyInput="true" timeZone="GMT+1" locale="pt" binding="#{colaboradorViewMB.calNoiteIni}" disabled="true">
+						<f:converter converterId="com.patrimonio.converter.TimeConverter"/>
+					</p:calendar>
+					<p:message id="msgHoraNoiteInicio" for="horaNoiteInicio" display="icon" />
+				</div>
+			</h:panelGroup>
+			<h:panelGroup>
+				<div class="org-form">
+					<h:outputLabel styleClass="labelForm" value="Noite Saída: " />
+					<p:spacer styleClass="spacerForm" />
+					<p:calendar id="horaNoiteFim" value="#{colaboradorViewMB.colaborador.horaNoiteFim}" 
+								pattern="HH:mm" timeOnly="true" styleClass="calendarSmall" readonlyInput="true" timeZone="GMT+1" locale="pt" binding="#{colaboradorViewMB.calNoiteFim}" disabled="true">
+						<f:converter converterId="com.patrimonio.converter.TimeConverter"/>
+					</p:calendar>
+					<p:message id="msgHoraNoiteFim" for="horaNoiteFim" display="icon" />
+				</div>
+			</h:panelGroup>
+		</h:panelGrid>
+	</p:fieldset>
+</ui:composition>

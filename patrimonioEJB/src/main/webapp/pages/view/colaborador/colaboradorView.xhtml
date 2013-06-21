@@ -1,0 +1,143 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui" xmlns:pe="http://primefaces.org/ui/extensions">
+
+	<div class="brFormLarge" />
+	<div class="brFormLarge" />
+
+
+	<p:toolbar styleClass="toolbar">
+		<p:toolbarGroup>
+			<p:commandButton type="push" icon="find" styleClass="big-button-icon" binding="#{colaboradorViewMB.btnPesquisar}" oncomplete="dialogColaboradorVar.show()" update="dialogColaborador, dtbColaborador">
+				<pe:selectDetailLevel />
+			</p:commandButton>
+
+			<p:commandButton type="push" binding="#{colaboradorViewMB.btnNovo}" actionListener="#{colaboradorViewMB.novo()}" icon="new" process="@this">
+				<pe:selectDetailLevel step="1" />
+			</p:commandButton>
+
+			<p:commandButton type="push" binding="#{colaboradorViewMB.btnEditar}" actionListener="#{colaboradorViewMB.edit()}" icon="edit" process="@this">
+				<pe:selectDetailLevel step="1" />
+			</p:commandButton>
+
+			<p:commandButton type="push" binding="#{colaboradorViewMB.btnExcluir}" icon="delete" onclick="deletedDlg.show()" update="masterDetail" process="masterDetail" />
+
+		</p:toolbarGroup>
+	</p:toolbar>
+		
+	<div class="brForm" />
+
+	<p:messages id="msgsView" showSummary="true" globalOnly="true" />
+
+	<div class="org-form">
+		<h:outputLabel styleClass="labelForm" value="Empresa: " />
+		<p:spacer styleClass="spacerForm" />
+		<p:selectOneMenu id="empresa" disabled="true" binding="#{colaboradorViewMB.ddlEmpresa}" />
+	</div>
+
+	<div class="org-form">
+		<h:outputLabel styleClass="labelForm" value="Matrícula: " />
+		<p:spacer styleClass="spacerForm" />
+		<p:inputText id="numMatricula" value="#{colaboradorViewMB.colaborador.numMatricula}" disabled="true" styleClass="inputSmall" />
+	</div>
+
+	<div class="org-form">
+		<h:outputLabel styleClass="labelForm" value="Data Admissão: " />
+		<p:spacer styleClass="spacerForm" />
+		<p:calendar styleClass="calendarSmall" value="#{colaboradorViewMB.colaborador.dataAdmissao}" locale="pt" showButtonPanel="true" navigator="true" id="dataAdmissao" pattern="dd/MM/yyyy" effect="slide" disabled="true">
+		</p:calendar>
+	</div>
+
+	<div class="org-form">
+		<h:outputLabel styleClass="labelForm" value="Nome Completo: " />
+		<p:spacer styleClass="spacerForm" />
+		<p:inputText id="nome" value="#{colaboradorViewMB.colaborador.nome}" disabled="true" styleClass="inputLarge">
+		</p:inputText>
+	</div>
+
+	<div class="org-form">
+		<h:outputLabel styleClass="labelForm" value="Apelido: " />
+		<p:spacer styleClass="spacerForm" />
+		<p:inputText id="apelido" value="#{colaboradorViewMB.colaborador.apelido}" disabled="true">
+		</p:inputText>
+	</div>
+
+	<div class="brForm" />
+
+	<div class="org-form">
+		<h:outputLabel styleClass="labelForm" value="Data Nascimento: " />
+		<p:spacer styleClass="spacerForm" />
+		<p:calendar styleClass="calendarSmall" value="#{colaboradorViewMB.colaborador.dataNascimento}" locale="pt" showButtonPanel="true" navigator="true" id="dataNascimento" pattern="dd/MM/yyyy" effect="slide" disabled="true">
+		</p:calendar>
+	</div>
+
+
+	<div class="org-form">
+		<h:outputLabel styleClass="labelForm" value="Sexo: " />
+		<p:spacer styleClass="spacerForm" />
+		<p:selectOneMenu id="sexo" disabled="true" binding="#{colaboradorViewMB.ddlSexo}">
+			<f:selectItem itemLabel="Masculino" itemValue="M" />
+			<f:selectItem itemLabel="Feminino" itemValue="F" />
+		</p:selectOneMenu>
+	</div>
+
+	<div class="org-form">
+		<h:outputLabel styleClass="labelForm" value="Setor: " />
+		<p:spacer styleClass="spacerForm" />
+		<p:selectOneMenu id="setor" disabled="true" binding="#{colaboradorViewMB.ddlSetor}" />
+	</div>
+
+	<div class="org-form">
+		<h:outputLabel styleClass="labelForm" value="Cargo: " />
+		<p:spacer styleClass="spacerForm" />
+		<p:selectOneMenu id="cargo" disabled="true" binding="#{colaboradorViewMB.ddlCargo}" />
+	</div>
+
+	<div class="org-form">
+		<h:outputLabel styleClass="labelForm" value="Lotacao: " />
+		<p:spacer styleClass="spacerForm" />
+		<p:selectOneMenu id="lotacao" disabled="true" binding="#{colaboradorViewMB.ddlLotacao}" />
+	</div>
+
+	<div class="org-form">
+		<h:outputLabel styleClass="labelForm" value="Nacionalidade: " />
+		<p:spacer styleClass="spacerForm" />
+		<p:selectOneMenu id="nacionalidade" disabled="true" binding="#{colaboradorViewMB.ddlNacionalidade}" />
+	</div>
+
+	<div class="org-form">
+		<h:outputLabel styleClass="labelForm" value="Relação: " />
+		<p:spacer styleClass="spacerForm" />
+		<p:selectOneMenu id="colaboradorRelacao" disabled="true" binding="#{colaboradorViewMB.ddlColaboradorRelacao}" />
+	</div>
+
+	<div class="org-form">
+		<h:outputLabel styleClass="labelForm" value="Estado Civil: " />
+		<p:spacer styleClass="spacerForm" />
+		<p:selectOneMenu id="estadoCivil" disabled="true" binding="#{colaboradorViewMB.ddlEstadoCivil}" />
+	</div>
+
+	<div class="org-form">
+		<h:outputLabel styleClass="labelForm" value="Grau de Instrução: " />
+		<p:spacer styleClass="spacerForm" />
+		<p:selectOneMenu id="grauInstrucao" disabled="true" binding="#{colaboradorViewMB.ddlGrauInstrucao}" />
+	</div>
+
+	<div class="org-form">
+		<h:outputLabel styleClass="labelForm" value="Profissao: " />
+		<p:spacer styleClass="spacerForm" />
+		<p:selectOneMenu id="profissao" disabled="true" binding="#{colaboradorViewMB.ddlProfissao}" />
+	</div>
+
+	<div class="brForm" />
+
+	<div class="org-form" style="margin-top: 30px; width: -moz-available;">
+		<ui:include src="/pages/view/colaborador/colaboradorTabIncludeView.xhtml"></ui:include>
+	</div>
+
+	<div class="org-form" style="margin-top: 30px; width: -moz-available;">
+		<ui:include src="/pages/teste/colaboradorDialog.xhtml" />
+	</div>
+	<div class="org-form" style="margin-top: 30px; width: -moz-available;">
+		<ui:include src="/pages/teste/deleteDialog.xhtml" />
+	</div>
+</ui:composition>

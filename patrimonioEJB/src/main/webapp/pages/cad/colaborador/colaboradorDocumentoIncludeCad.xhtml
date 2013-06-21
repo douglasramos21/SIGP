@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
+
+	<p:fieldset toggleable="true" toggleSpeed="500" legend="" >
+
+			<p:dataTable var="documento" value="#{colaboradorViewMB.listaDocumentos}" id="documentos" editable="true" lazy="true" style=" width: 75%">
+
+				<p:ajax event="rowEditCancel" listener="#{colaboradorViewMB.removeDocumentoRow}" update="@this" process="@this" />
+				<p:ajax event="rowEdit" listener="#{colaboradorViewMB.removeDocumentoRow}" update="@this" process="@this" />
+
+
+				<f:facet name="header">  
+            		Documentos 
+       			</f:facet>
+
+				<p:column headerText="Tipo Documento" style="width:25%">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{documento.tipoDocumento.nome}" />
+						</f:facet>
+						<f:facet name="input">
+							<h:selectOneMenu id="tipoDocumentoCad" value="#{documento.tipoDocumento}" converter="com.patrimonio.converter.SelectOneMenuConverter">
+								<f:selectItems value="#{colaboradorViewMB.listTipoDocumento}" var="tipoDocumento" itemLabel="#{tipoDocumento.nome}" itemValue="#{tipoDocumento}" />
+							</h:selectOneMenu>
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column headerText="Número Documento" style="width:20%">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{documento.numDocumento}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{documento.numDocumento}" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column headerText="Local Emissão" style="width:10%">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{documento.localEmissao.nome}" />
+						</f:facet>
+						<f:facet name="input">
+						<h:selectOneMenu value="#{documento.localEmissao}" converter="com.patrimonio.converter.SelectOneMenuConverter">
+							<f:selectItems value="#{colaboradorViewMB.listProvincia}" var="provincia" itemValue="#{provincia}" itemLabel="#{provincia.nome}" />
+						</h:selectOneMenu>
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column headerText="Class. Carta Condução" style="width:10%">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{documento.classificacaoDocumento}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{documento.classificacaoDocumento}" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column headerText="Data Emissão" style="width:10%">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{documento.dataEmissaoFormatada}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:calendar styleClass="inputSmall" value="#{documento.dataEmissao}" locale="pt" showButtonPanel="true" navigator="true" id="dataEmissao" pattern="dd/MM/yyyy" effect="slide" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column headerText="Data Validade" style="width:10%">
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{documento.dataValidadeFormatada}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:calendar styleClass="inputSmall" value="#{documento.dataValidade}" locale="pt" showButtonPanel="true" navigator="true" id="dataValidade" pattern="dd/MM/yyyy" effect="slide" />
+						</f:facet>
+					</p:cellEditor>
+				</p:column>
+
+				<p:column style="width:10%">
+					<f:facet name="header">
+						<p:commandButton actionListener="#{colaboradorViewMB.removeDocumentoRow}" action="#{colaboradorViewMB.addDocumentoRow}" 
+											oncomplete="editTableRow($('#tabViewColaboradorCad\\:documentos'))" 
+											icon="ui-icon-circle-plus" update="documentos" process="@this" 
+											style="background: none repeat scroll 0 0 transparent; border: medium none;" />
+					</f:facet>
+					<p:rowEditor />
+				</p:column>
+
+			</p:dataTable>
+
+	</p:fieldset>
+</ui:composition>

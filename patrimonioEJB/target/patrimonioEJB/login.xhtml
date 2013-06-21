@@ -1,0 +1,33 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" 
+	  xmlns:f="http://java.sun.com/jsf/core" 
+	  xmlns:h="http://java.sun.com/jsf/html" 
+	  xmlns:ui="http://java.sun.com/jsf/facelets" 
+	  xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<h:outputScript name="jquery-1.9.0.js" library="js"/>
+	<h:outputScript name="app.js" library="js"/>
+	<h:outputStylesheet name="base.css" library="css"/> 
+	<h:outputStylesheet name="skeleton.css" library="css"/> 
+	<h:outputStylesheet name="layout.css" library="css"/>
+</h:head>
+<h:body>
+	<h:form>
+		
+		<p:growl showDetail="false" life="3000" />
+		<p:panelGrid columns="2" style="width: 100px; margin: 10% auto 0; font-size: 14px; font-family: Arial; font-weight: bold;" >
+			<p:outputLabel value="E-mail: "/>
+			<p:inputText id="email" label="email" value="#{loginMB.email}"/>
+			<p:outputLabel value="Password: " />
+			<p:password feedback="true" id="password" value="#{loginMB.password}" inline="true" validatorMessage="Mínimo de 6 caracteres.">
+				<f:validateLength minimum="6"/>
+			</p:password>
+			<h:outputLabel value="invisible" style="visibility: hidden" />
+			<p:commandButton action="#{loginMB.login}" value="Login" ajax="false" style="font-size: 12px"/>
+		</p:panelGrid>
+
+	</h:form>
+</h:body>
+</html>

@@ -1,0 +1,44 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<h:outputScript name="scripts.js" library="js" />
+	<h:outputStylesheet name="cssBasico.css" library="css" />
+</h:head>
+
+<h:body>
+	<h:form id="form" prependId="false">
+		<div class="barraVertical barraTitulo" style="display: table; height: 100%; width: 100%">
+			<p:growl id="messages" />
+
+			<p:menubar>
+				<p:submenu label="Cadastro" icon="ui-icon-document">
+					<p:submenu label=" Colaboradores" icon="colaborador">
+						<p:menuitem value="Colaborador" onclick="loadPage('/patrimonioEJB/pages/master/colaboradorMaster.xhtml')"/>
+					</p:submenu>
+					<p:menuitem value="" url="#" />
+					<p:separator />
+					<p:menuitem value="Quit" action="#{loginMB.logout}" ajax="false" />
+				</p:submenu>
+
+				<p:menuitem value="Quit" icon="ui-icon-close" action="#{loginMB.logout}" ajax="false" />
+
+			</p:menubar>
+		</div>
+
+		<table>
+			<tr>
+				<td class="contentBackground" style="vertical-align: top; margin-top: 2px; display: table; height: 100%; width: 98.4%; position: absolute;">
+				
+					<h:panelGroup id="pGroup">
+					</h:panelGroup> 
+					
+					<p:ajaxStatus onstart="statusDialog.show();" onsuccess="statusDialog.hide();" /> <p:dialog modal="true" widgetVar="statusDialog" header="Status" draggable="false" closable="false">
+						<p:graphicImage value="/resources/images/ajax-loader-bar.gif" />
+					</p:dialog></td>
+			</tr>
+		</table>
+	</h:form>
+</h:body>
+</html>
