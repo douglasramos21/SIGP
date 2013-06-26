@@ -620,16 +620,19 @@ public class ColaboradorViewMB extends GenericMB implements InterfaceViewMB {
 			if(getDtbEndereco() != null && getDtbEndereco().getFilteredValue() != null){
 				getDtbEndereco().getFilteredValue().clear();
 				getDtbEndereco().clearInitialState();
+				System.out.println("endereco");
 			}
 
 			if(getDtbDependente() != null && getDtbDependente().getFilteredValue() != null){
 				getDtbDependente().getFilteredValue().clear();
 				getDtbDependente().clearInitialState();
+				System.out.println("dependente");
 			}
 
 			if(getDtbDocumento() != null && getDtbDocumento().getFilteredValue() != null){
 				getDtbDocumento().getFilteredValue().clear();
 				getDtbDocumento().clearInitialState();
+				System.out.println("documento");
 			}
 
 //			getDdlSexo().setValue("F");

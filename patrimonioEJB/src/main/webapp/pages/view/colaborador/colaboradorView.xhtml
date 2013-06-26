@@ -7,20 +7,15 @@
 
 	<p:toolbar styleClass="toolbar">
 		<p:toolbarGroup>
-			<p:commandButton type="push" icon="find" styleClass="big-button-icon" binding="#{colaboradorViewMB.btnPesquisar}" oncomplete="dialogColaboradorVar.show()" update="dialogColaborador, dtbColaborador">
-				<pe:selectDetailLevel />
+			<p:commandButton type="push" binding="#{colaboradorViewMB.btnPesquisar}" icon="find" styleClass="big-button-icon" oncomplete="dialogColaboradorVar.show()" update="dialogColaborador, dtbColaborador">
 			</p:commandButton>
-
 			<p:commandButton type="push" binding="#{colaboradorViewMB.btnNovo}" actionListener="#{colaboradorViewMB.novo()}" icon="new" process="@this">
 				<pe:selectDetailLevel step="1" />
 			</p:commandButton>
-
 			<p:commandButton type="push" binding="#{colaboradorViewMB.btnEditar}" actionListener="#{colaboradorViewMB.edit()}" icon="edit" process="@this">
 				<pe:selectDetailLevel step="1" />
 			</p:commandButton>
-
 			<p:commandButton type="push" binding="#{colaboradorViewMB.btnExcluir}" icon="delete" onclick="deletedDlg.show()" update="masterDetail" process="masterDetail" />
-
 		</p:toolbarGroup>
 	</p:toolbar>
 		
@@ -31,7 +26,7 @@
 	<div class="org-form">
 		<h:outputLabel styleClass="labelForm" value="Empresa: " />
 		<p:spacer styleClass="spacerForm" />
-		<p:selectOneMenu id="empresa" disabled="true" binding="#{colaboradorViewMB.ddlEmpresa}" />
+		<p:selectOneMenu id="empresa" disabled="true" styleClass="inputDisabled" binding="#{colaboradorViewMB.ddlEmpresa}" />
 	</div>
 
 	<div class="org-form">
