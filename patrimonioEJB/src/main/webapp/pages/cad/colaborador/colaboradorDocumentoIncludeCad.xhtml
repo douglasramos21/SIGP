@@ -2,12 +2,11 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
 
 	<p:fieldset toggleable="true" toggleSpeed="500" legend="" >
-
-			<p:dataTable var="documento" value="#{colaboradorViewMB.listaDocumentos}" id="documentos" editable="true" lazy="true" style=" width: 75%">
+	
+			<p:dataTable rowIndexVar="row" var="documento" value="#{colaboradorViewMB.listaDocumentos}" id="documentos" editable="true" lazy="true" style=" width: 75%">
 
 				<p:ajax event="rowEditCancel" listener="#{colaboradorViewMB.removeDocumentoRow}" update="@this" process="@this" />
-				<p:ajax event="rowEdit" listener="#{colaboradorViewMB.removeDocumentoRow}" update="@this" process="@this" />
-
+				<p:ajax event="rowEdit" listener="#{colaboradorViewMB.removeDocumentoRow}" update="@this" process="@this"/>
 
 				<f:facet name="header">  
             		Documentos 
@@ -20,7 +19,7 @@
 						</f:facet>
 						<f:facet name="input">
 							<h:selectOneMenu id="tipoDocumentoCad" value="#{documento.tipoDocumento}" converter="com.patrimonio.converter.SelectOneMenuConverter">
-								<f:selectItems value="#{colaboradorViewMB.listTipoDocumento}" var="tipoDocumento" itemLabel="#{tipoDocumento.nome}" itemValue="#{tipoDocumento}" />
+								<f:selectItems value="#{colaboradorViewMB.listTipoDocumento}" var="tipoDocumento" itemLabel="#{tipoDocumento.nome}" itemValue="#{tipoDocumento}"/>
 							</h:selectOneMenu>
 						</f:facet>
 					</p:cellEditor>
@@ -50,13 +49,16 @@
 					</p:cellEditor>
 				</p:column>
 
-				<p:column headerText="Class. Carta Condução" style="width:10%">
+				<p:column headerText="Classificação" style="width:10%" id="classDocCad">
 					<p:cellEditor>
 						<f:facet name="output">
-							<h:outputText value="#{documento.classificacaoDocumento}" />
+							<h:outputText value="#{documento.classificacaoDocumento}"/>
 						</f:facet>
 						<f:facet name="input">
-							<p:inputText value="#{documento.classificacaoDocumento}" />
+							<p:inputText id="docClass" value="#{documento.classificacaoDocumento}"/>
+							<h:selectOneMenu id="docTipoVisto" value="#{documento.tipoVisto}" converter="com.patrimonio.converter.SelectOneMenuConverter">
+								<f:selectItems value="#{colaboradorViewMB.listTipoVisto}" var="tipoVisto" itemValue="#{tipoVisto}" itemLabel="#{tipoVisto.sigla}" />
+							</h:selectOneMenu>
 						</f:facet>
 					</p:cellEditor>
 				</p:column>
@@ -85,15 +87,28 @@
 
 				<p:column style="width:10%">
 					<f:facet name="header">
-						<p:commandButton actionListener="#{colaboradorViewMB.removeDocumentoRow}" action="#{colaboradorViewMB.addDocumentoRow}" 
-											oncomplete="editTableRow($('#tabViewColaboradorCad\\:documentos'))" 
+						<p:commandButton  	id="addDocButton"
+											actionListener="#{colaboradorViewMB.removeDocumentoRow}" action="#{colaboradorViewMB.addDocumentoRow}" 
+											oncomplete="editTableRow($('#tabViewColaboradorCad\\:documentos'));" 
 											icon="ui-icon-circle-plus" update="documentos" process="@this" 
 											style="background: none repeat scroll 0 0 transparent; border: medium none;" />
 					</f:facet>
-					<p:rowEditor />
+					
+					<p:commandLink actionListener="#{colaboradorViewMB.changeClassDocumento(documento)}">
+	           			<p:rowEditor/>
+	           		</p:commandLink>
+
+					
+				</p:column>
+				
+				<p:column headerText="Exclusão">
+						<p:commandButton  	actionListener="#{colaboradorViewMB.removeRowOnButton(documento)}" 
+											icon="ui-icon-trash" update="documentos" process="@this" 
+											style="background: none repeat scroll 0 0 transparent; border: medium none;" />
 				</p:column>
 
 			</p:dataTable>
-
 	</p:fieldset>
+	
+	
 </ui:composition>

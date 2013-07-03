@@ -13,10 +13,12 @@ import javax.faces.FacesException;
 import javax.faces.bean.ManagedBean;
 import javax.faces.component.UIComponent;
 import javax.faces.component.UISelectItem;
+import javax.faces.component.html.HtmlSelectOneMenu;
 import javax.faces.context.FacesContext;
 
 import org.primefaces.component.calendar.Calendar;
 import org.primefaces.component.datatable.DataTable;
+import org.primefaces.component.inputtext.InputText;
 import org.primefaces.component.selectonemenu.SelectOneMenu;
 import org.primefaces.event.SelectEvent;
 
@@ -41,7 +43,9 @@ import com.patrimonio.model.Provincia;
 import com.patrimonio.model.Setor;
 import com.patrimonio.model.TipoDocumento;
 import com.patrimonio.model.TipoHorario;
+import com.patrimonio.model.TipoVisto;
 import com.patrimonio.service.ColaboradorBP;
+import com.patrimonio.utils.Utils;
 
 @ManagedBean(name = "colaboradorViewMB")
 public class ColaboradorViewMB extends GenericMB implements InterfaceViewMB {
@@ -70,12 +74,11 @@ public class ColaboradorViewMB extends GenericMB implements InterfaceViewMB {
 	private List<TipoHorario> listTipoHorario = new ArrayList<TipoHorario>();
 	private List<TipoDocumento> listTipoDocumento = new ArrayList<TipoDocumento>();
 	private List<String> listTipoEndereco = new ArrayList<String>();
+	private List<TipoVisto> listTipoVisto = new ArrayList<TipoVisto>();
 
 	private List<ColaboradorEndereco> listaEnderecos = new ArrayList<ColaboradorEndereco>();
 	private List<ColaboradorDependente> listaDependentes = new ArrayList<ColaboradorDependente>();
 	private List<ColaboradorDocumento> listaDocumentos = new ArrayList<ColaboradorDocumento>();
-	
-	
 
 	private transient SelectOneMenu ddlCargo = new SelectOneMenu();
 	private transient SelectOneMenu ddlColaboradorRelacao = new SelectOneMenu();
@@ -93,6 +96,7 @@ public class ColaboradorViewMB extends GenericMB implements InterfaceViewMB {
 	private transient SelectOneMenu ddlTipoHorario = new SelectOneMenu();
 	private transient SelectOneMenu ddlTipoDocumento = new SelectOneMenu();
 	private transient SelectOneMenu ddlTipoEndereco = new SelectOneMenu();
+	private transient HtmlSelectOneMenu ddlTipoVisto = new HtmlSelectOneMenu();
 	private transient Calendar calDiaIni = new Calendar();
 	private transient Calendar calDiaFim = new Calendar();
 	private transient Calendar calTardeIni = new Calendar();
@@ -103,6 +107,7 @@ public class ColaboradorViewMB extends GenericMB implements InterfaceViewMB {
 	private transient DataTable dtbEndereco = new DataTable();
 	private transient DataTable dtbDependente = new DataTable();
 	private transient DataTable dtbDocumento = new DataTable();
+	private transient InputText docClass = new InputText();
 
 	@PostConstruct
 	public void init() throws Exception {
@@ -136,7 +141,7 @@ public class ColaboradorViewMB extends GenericMB implements InterfaceViewMB {
 	public void novo() throws Exception {
 		FacesContext.getCurrentInstance().getViewRoot().clearInitialState();
 		setColaborador(new Colaborador());
-		
+
 		carregaObjetosNovo();
 	}
 
@@ -162,17 +167,13 @@ public class ColaboradorViewMB extends GenericMB implements InterfaceViewMB {
 
 	@Override
 	public void cancel() throws Exception {
-		
+
 		if (getColaborador() == null || getColaborador().getId() == null) {
 			hideToolbarButtons();
 			// removeSelectItemsDefault();
 			// addSelectItemsDefault();
 			setSelectItemsDefault();
 		} else {
-			for (ColaboradorEndereco colEnd : getColaborador().getEnderecos()) {
-				System.out.println(colEnd.getEndereco());
-			}
-			
 			showToolbarButtons();
 			setSelectItems();
 		}
@@ -205,7 +206,7 @@ public class ColaboradorViewMB extends GenericMB implements InterfaceViewMB {
 		setSelectItemsDefault();
 		saveStateContext();
 	}
-	
+
 	public void carregaObjetos() {
 		showToolbarButtons();
 		clearLists();
@@ -220,7 +221,7 @@ public class ColaboradorViewMB extends GenericMB implements InterfaceViewMB {
 		loadTabLists();
 		loadSelectItems();
 	}
-	
+
 	public String saveSuccess(Colaborador colab) {
 		displayInfoMessageToUser("Colaborador " + colab.getApelido() + " foi salvo com sucesso!");
 		return null;
@@ -577,6 +578,9 @@ public class ColaboradorViewMB extends GenericMB implements InterfaceViewMB {
 	public void setSelectItemsDefault() {
 
 		try {
+
+			getColaborador().setSexo('M');
+
 			if (!getListColaboradorRelacao().isEmpty()) {
 				getDdlColaboradorRelacao().setValue(getListColaboradorRelacao().get(0));
 			}
@@ -616,26 +620,18 @@ public class ColaboradorViewMB extends GenericMB implements InterfaceViewMB {
 			if (!getListTipoHorario().isEmpty()) {
 				getDdlTipoHorario().setValue(getListTipoHorario().get(0));
 			}
-			
-			if(getDtbEndereco() != null && getDtbEndereco().getFilteredValue() != null){
-				getDtbEndereco().getFilteredValue().clear();
-				getDtbEndereco().clearInitialState();
-				System.out.println("endereco");
-			}
 
-			if(getDtbDependente() != null && getDtbDependente().getFilteredValue() != null){
-				getDtbDependente().getFilteredValue().clear();
-				getDtbDependente().clearInitialState();
-				System.out.println("dependente");
-			}
+			setListaEnderecos(new ArrayList<ColaboradorEndereco>());
+			setListaDependentes(new ArrayList<ColaboradorDependente>());
+			setListaDocumentos(new ArrayList<ColaboradorDocumento>());
 
-			if(getDtbDocumento() != null && getDtbDocumento().getFilteredValue() != null){
-				getDtbDocumento().getFilteredValue().clear();
-				getDtbDocumento().clearInitialState();
-				System.out.println("documento");
-			}
+			getColaborador().setEnderecos(new ArrayList<ColaboradorEndereco>());
+			getColaborador().setDependentes(new ArrayList<ColaboradorDependente>());
+			getColaborador().setDocumentos(new ArrayList<ColaboradorDocumento>());
 
-//			getDdlSexo().setValue("F");
+			getDtbEndereco().setFilteredValue(new ArrayList<>());
+			getDtbDependente().setFilteredValue(new ArrayList<>());
+			getDtbDocumento().setFilteredValue(new ArrayList<>());
 
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -714,10 +710,24 @@ public class ColaboradorViewMB extends GenericMB implements InterfaceViewMB {
 		colEnd.setColaborador(getColaborador());
 		colEnd.setEndereco("");
 		colEnd.setProvincia(new Provincia());
-		getColaborador().getEnderecos().add(colEnd);
+		getListaEnderecos().add(colEnd);
 
 		return null;
 
+	}
+
+	public String addDependenteRow() {
+		// setColaborador(getStateContext());
+
+		ColaboradorDependente colDep = new ColaboradorDependente();
+		colDep.setColaborador(getColaborador());
+		colDep.setNome("");
+		colDep.setDataNascimento(new Date());
+		colDep.setFiliacao(new Filiacao());
+
+		getListaDependentes().add(colDep);
+
+		return null;
 	}
 
 	public String addDocumentoRow() {
@@ -732,64 +742,44 @@ public class ColaboradorViewMB extends GenericMB implements InterfaceViewMB {
 		colDoc.setTipoDocumento(new TipoDocumento());
 		colDoc.setDataEmissao(new Date());
 		colDoc.setDataValidade(new Date());
-		getColaborador().getDocumentos().add(colDoc);
-
+		getListaDocumentos().add(colDoc);
+		
 		return null;
 
 	}
-
-	public String addDependenteRow() {
-
-		// setColaborador(getStateContext());
-
-		ColaboradorDependente colDep = new ColaboradorDependente();
-		colDep.setColaborador(getColaborador());
-		colDep.setNome("");
-		colDep.setDataNascimento(new Date());
-		colDep.setFiliacao(new Filiacao());
-
-		getColaborador().getDependentes().add(colDep);
-
-		return null;
-
+	
+	
+	public void changeClassDocumento(ColaboradorDocumento colDoc){
+		
+		System.out.println("entrou");
+		
+//		if(colDoc.getTipoDocumento() != null && colDoc.getTipoDocumento().getNome().equals("Visto")){
+//			getDdlTipoVisto().setRendered(true);
+//			getDocClass().setRendered(false);
+//			getDdlTipoVisto().setStyle("display: inline");
+//			getDocClass().setStyle("display: none");
+//			
+//		} else {
+//			getDdlTipoVisto().setRendered(false);
+//			getDocClass().setRendered(true);
+//			getDdlTipoVisto().setStyle("display: none");
+//			getDocClass().setStyle("display: inline");
+//		}
+		
 	}
 
 	public String removeEnderecoRow() {
 
 		// setColaborador(getStateContext());
 
-		if (getColaborador().getEnderecos() != null && !getColaborador().getEnderecos().isEmpty()) {
+		if (getListaEnderecos() != null && !getListaEnderecos().isEmpty()) {
 			ColaboradorEndereco colEnd = new ColaboradorEndereco();
-			for (int i = 0; i < getColaborador().getEnderecos().size(); i++) {
+			for (int i = 0; i < getListaEnderecos().size(); i++) {
 
-				colEnd = getColaborador().getEnderecos().get(i);
+				colEnd = getListaEnderecos().get(i);
 
 				if (colEnd.getEndereco().trim().equals("") || colEnd.getProvincia() == null || colEnd.getProvincia().getId() == null || colEnd.getTipoEndereco() == null) {
-					getColaborador().getEnderecos().remove(i);
-				}
-			}
-		}
-
-		return null;
-
-	}
-
-	public String removeDocumentoRow() {
-
-		// setColaborador(getStateContext());
-
-		if (getColaborador().getDocumentos() != null && !getColaborador().getDocumentos().isEmpty()) {
-			ColaboradorDocumento colDoc = new ColaboradorDocumento();
-			for (int i = 0; i < getColaborador().getDocumentos().size(); i++) {
-
-				colDoc = getColaborador().getDocumentos().get(i);
-
-				if ((colDoc.getClassificacaoDocumento() != null && colDoc.getClassificacaoDocumento().trim().equals(""))
-					|| (colDoc.getClassificacaoDocumento() == null && colDoc.getTipoVisto() == null)
-					|| colDoc.getDataEmissao() == null 
-					|| colDoc.getDataValidade() == null) {
-					
-					getColaborador().getDocumentos().remove(i);
+					getListaEnderecos().remove(i);
 				}
 			}
 		}
@@ -802,19 +792,58 @@ public class ColaboradorViewMB extends GenericMB implements InterfaceViewMB {
 
 		// setColaborador(getStateContext());
 
-		if (getColaborador().getDependentes() != null && !getColaborador().getDependentes().isEmpty()) {
+		if (getListaDependentes() != null && !getListaDependentes().isEmpty()) {
 			ColaboradorDependente colDep = new ColaboradorDependente();
-			for (int i = 0; i < getColaborador().getDependentes().size(); i++) {
+			for (int i = 0; i < getListaDependentes().size(); i++) {
 
-				colDep = getColaborador().getDependentes().get(i);
+				colDep = getListaDependentes().get(i);
 
 				if (colDep.getNome().trim().equals("") || colDep.getFiliacao() == null || colDep.getFiliacao().getId() == null || colDep.getDataNascimento() == null) {
-					getColaborador().getDependentes().remove(i);
+					getListaDependentes().remove(i);
 				}
 			}
 		}
 
 		return null;
+	}
+
+	public String removeDocumentoRow() {
+
+		// setColaborador(getStateContext());
+
+		if (getListaDocumentos() != null && !getListaDocumentos().isEmpty()) {
+			ColaboradorDocumento colDoc = new ColaboradorDocumento();
+			for (int i = 0; i < getListaDocumentos().size(); i++) {
+
+				colDoc = getListaDocumentos().get(i);
+
+				if ((colDoc.getClassificacaoDocumento() != null && colDoc.getClassificacaoDocumento().trim().equals("")) || (colDoc.getClassificacaoDocumento() == null && colDoc.getTipoVisto() == null) || colDoc.getDataEmissao() == null || colDoc.getDataValidade() == null) {
+
+					getListaDocumentos().remove(i);
+				}
+			}
+		}
+
+		return null;
+
+	}
+	
+	public void removeRowOnButton(ColaboradorDocumento documento){
+		getListaDocumentos().remove(documento);
+	}
+
+	public void loadApelido() {
+		String nomeSubtr = getColaborador().getNome();
+
+		if (nomeSubtr.indexOf(" ") != -1) {
+			nomeSubtr = nomeSubtr.substring(0, nomeSubtr.indexOf(" "));
+			getColaborador().setApelido(nomeSubtr);
+		}
+
+	}
+
+	public void emailValidator() {
+		Utils.emailValidate(getColaborador().getEmail());
 	}
 
 	public void setColaboradorBP(ColaboradorBP colaboradorBP) {
@@ -1195,6 +1224,30 @@ public class ColaboradorViewMB extends GenericMB implements InterfaceViewMB {
 
 	public void setListaDocumentos(List<ColaboradorDocumento> listaDocumentos) {
 		this.listaDocumentos = listaDocumentos;
+	}
+
+	public List<TipoVisto> getListTipoVisto() {
+		return listTipoVisto;
+	}
+
+	public void setListTipoVisto(List<TipoVisto> listTipoVisto) {
+		this.listTipoVisto = listTipoVisto;
+	}
+
+	public InputText getDocClass() {
+		return docClass;
+	}
+
+	public void setDocClass(InputText docClass) {
+		this.docClass = docClass;
+	}
+
+	public HtmlSelectOneMenu getDdlTipoVisto() {
+		return ddlTipoVisto;
+	}
+
+	public void setDdlTipoVisto(HtmlSelectOneMenu ddlTipoVisto) {
+		this.ddlTipoVisto = ddlTipoVisto;
 	}
 
 }

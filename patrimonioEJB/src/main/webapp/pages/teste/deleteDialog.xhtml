@@ -12,7 +12,7 @@
             </h:panelGroup>  
             <p:commandButton id="deleteBtn" value="Delete" oncomplete="deletedDlg.hide();"  
                              action="#{colaboradorViewMB.delete()}" process="@this"  
-                             style="margin-top:10px;">  
+                             style="margin-top:10px;" update="masterDetail" >  
                 <pe:selectDetailLevel level="1"/>  
             </p:commandButton>  
             <p:commandButton value="Cancel" type="button" onclick="deletedDlg.hide();"  

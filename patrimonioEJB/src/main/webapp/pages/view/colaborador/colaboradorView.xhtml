@@ -4,124 +4,135 @@
 	<div class="brFormLarge" />
 	<div class="brFormLarge" />
 
-
 	<p:toolbar styleClass="toolbar">
 		<p:toolbarGroup>
-			<p:commandButton type="push" binding="#{colaboradorViewMB.btnPesquisar}" icon="find" styleClass="big-button-icon" oncomplete="dialogColaboradorVar.show()" update="dialogColaborador, dtbColaborador">
+			<p:commandButton id="find" binding="#{colaboradorViewMB.btnPesquisar}" icon="find24" styleClass="big-button-icon" 
+								oncomplete="dialogColaboradorVar.show()" update="dialogColaborador, dtbColaborador" title="Pesquisar">
 			</p:commandButton>
-			<p:commandButton type="push" binding="#{colaboradorViewMB.btnNovo}" actionListener="#{colaboradorViewMB.novo()}" icon="new" process="@this">
+			
+			<p:separator />
+			
+			<p:commandButton id="new" binding="#{colaboradorViewMB.btnNovo}" 
+								actionListener="#{colaboradorViewMB.novo()}" icon="new24" process="@this" title="Novo">
 				<pe:selectDetailLevel step="1" />
 			</p:commandButton>
-			<p:commandButton type="push" binding="#{colaboradorViewMB.btnEditar}" actionListener="#{colaboradorViewMB.edit()}" icon="edit" process="@this">
+			<p:commandButton id="edit" binding="#{colaboradorViewMB.btnEditar}" 
+								actionListener="#{colaboradorViewMB.edit()}" icon="edit24" process="@this" title="Editar">
 				<pe:selectDetailLevel step="1" />
 			</p:commandButton>
-			<p:commandButton type="push" binding="#{colaboradorViewMB.btnExcluir}" icon="delete" onclick="deletedDlg.show()" update="masterDetail" process="masterDetail" />
+			<p:commandButton id="delete" binding="#{colaboradorViewMB.btnExcluir}" icon="delete24" 
+								onclick="deletedDlg.show()" process="masterDetail" title="Excluir">
+			</p:commandButton>
 		</p:toolbarGroup>
 	</p:toolbar>
-		
+
 	<div class="brForm" />
 
 	<p:messages id="msgsView" showSummary="true" globalOnly="true" />
 
-	<div class="org-form">
-		<h:outputLabel styleClass="labelForm" value="Empresa: " />
-		<p:spacer styleClass="spacerForm" />
-		<p:selectOneMenu id="empresa" disabled="true" styleClass="inputDisabled" binding="#{colaboradorViewMB.ddlEmpresa}" />
-	</div>
+	<p:fieldset id="fieldsetColDadosPessoaisView" toggleable="true" legend="Dados Pessoais">
 
-	<div class="org-form">
-		<h:outputLabel styleClass="labelForm" value="Matrícula: " />
-		<p:spacer styleClass="spacerForm" />
-		<p:inputText id="numMatricula" value="#{colaboradorViewMB.colaborador.numMatricula}" disabled="true" styleClass="inputSmall" />
-	</div>
+		<div class="org-form">
+			<h:outputLabel styleClass="labelForm" value="Matrícula: " />
+			<p:spacer styleClass="spacerForm" />
+			<p:inputText id="numMatricula" value="#{colaboradorViewMB.colaborador.numMatricula}" disabled="true" styleClass="inputSmall" />
+		</div>
+		<div class="org-form">
+			<h:outputLabel styleClass="labelForm" value="Nome Completo: " />
+			<p:spacer styleClass="spacerForm" />
+			<p:inputText id="nome" value="#{colaboradorViewMB.colaborador.nome}" disabled="true" styleClass="inputLarge">
+			</p:inputText>
+		</div>
+		<div class="org-form">
+			<h:outputLabel styleClass="labelForm" value="Apelido: " />
+			<p:spacer styleClass="spacerForm" />
+			<p:inputText id="apelido" value="#{colaboradorViewMB.colaborador.apelido}" disabled="true">
+			</p:inputText>
+		</div>
+		<div class="org-form">
+			<h:outputLabel styleClass="labelForm" value="Data Nascimento: " />
+			<p:spacer styleClass="spacerForm" />
+			<p:calendar styleClass="calendarSmall" value="#{colaboradorViewMB.colaborador.dataNascimento}" locale="pt" 
+						showButtonPanel="true" navigator="true" id="dataNascimento" pattern="dd/MM/yyyy" effect="slide" disabled="true">
+			</p:calendar>
+		</div>
+		<div class="org-form">
+			<h:outputLabel styleClass="labelForm" value="Sexo: " />
+			<p:spacer styleClass="spacerForm" />
+			<p:selectOneRadio id="sexo" disabled="true" value="#{colaboradorViewMB.colaborador.sexo}">
+				<f:selectItem itemLabel="Masc." itemValue="M" />
+				<f:selectItem itemLabel="Fem." itemValue="F" />
+			</p:selectOneRadio>
+		</div>
+		
+		<div class="brForm"/>
+		
+		<div class="org-form">
+			<h:outputLabel styleClass="labelForm" value="Nacionalidade: " />
+			<p:spacer styleClass="spacerForm" />
+			<p:selectOneMenu id="nacionalidade" disabled="true" binding="#{colaboradorViewMB.ddlNacionalidade}" />
+		</div>
 
-	<div class="org-form">
-		<h:outputLabel styleClass="labelForm" value="Data Admissão: " />
-		<p:spacer styleClass="spacerForm" />
-		<p:calendar styleClass="calendarSmall" value="#{colaboradorViewMB.colaborador.dataAdmissao}" locale="pt" showButtonPanel="true" navigator="true" id="dataAdmissao" pattern="dd/MM/yyyy" effect="slide" disabled="true">
-		</p:calendar>
-	</div>
+		<div class="org-form">
+			<h:outputLabel styleClass="labelForm" value="Estado Civil: " />
+			<p:spacer styleClass="spacerForm" />
+			<p:selectOneMenu id="estadoCivil" disabled="true" binding="#{colaboradorViewMB.ddlEstadoCivil}" />
+		</div>
+	</p:fieldset>
 
-	<div class="org-form">
-		<h:outputLabel styleClass="labelForm" value="Nome Completo: " />
-		<p:spacer styleClass="spacerForm" />
-		<p:inputText id="nome" value="#{colaboradorViewMB.colaborador.nome}" disabled="true" styleClass="inputLarge">
-		</p:inputText>
-	</div>
+	<p:fieldset id="fieldsetColDadosProfissionaisView" toggleable="true" legend="Dados Profissionais">
 
-	<div class="org-form">
-		<h:outputLabel styleClass="labelForm" value="Apelido: " />
-		<p:spacer styleClass="spacerForm" />
-		<p:inputText id="apelido" value="#{colaboradorViewMB.colaborador.apelido}" disabled="true">
-		</p:inputText>
-	</div>
+		<div class="org-form">
+			<h:outputLabel styleClass="labelForm" value="Empresa: " />
+			<p:spacer styleClass="spacerForm" />
+			<p:selectOneMenu id="empresa" disabled="true" styleClass="inputDisabled" binding="#{colaboradorViewMB.ddlEmpresa}" />
+		</div>
+		<div class="org-form">
+			<h:outputLabel styleClass="labelForm" value="Data Admissão: " />
+			<p:spacer styleClass="spacerForm" />
+			<p:calendar styleClass="calendarSmall" value="#{colaboradorViewMB.colaborador.dataAdmissao}" locale="pt" 
+						showButtonPanel="true" navigator="true" id="dataAdmissao" pattern="dd/MM/yyyy" effect="slide" disabled="true">
+			</p:calendar>
+		</div>
 
-	<div class="brForm" />
+		<div class="org-form">
+			<h:outputLabel styleClass="labelForm" value="Setor: " />
+			<p:spacer styleClass="spacerForm" />
+			<p:selectOneMenu id="setor" disabled="true" binding="#{colaboradorViewMB.ddlSetor}" />
+		</div>
 
-	<div class="org-form">
-		<h:outputLabel styleClass="labelForm" value="Data Nascimento: " />
-		<p:spacer styleClass="spacerForm" />
-		<p:calendar styleClass="calendarSmall" value="#{colaboradorViewMB.colaborador.dataNascimento}" locale="pt" showButtonPanel="true" navigator="true" id="dataNascimento" pattern="dd/MM/yyyy" effect="slide" disabled="true">
-		</p:calendar>
-	</div>
+		<div class="org-form">
+			<h:outputLabel styleClass="labelForm" value="Cargo: " />
+			<p:spacer styleClass="spacerForm" />
+			<p:selectOneMenu id="cargo" disabled="true" binding="#{colaboradorViewMB.ddlCargo}" />
+		</div>
 
+		<div class="org-form">
+			<h:outputLabel styleClass="labelForm" value="Lotacao: " />
+			<p:spacer styleClass="spacerForm" />
+			<p:selectOneMenu id="lotacao" disabled="true" binding="#{colaboradorViewMB.ddlLotacao}" />
+		</div>
 
-	<div class="org-form">
-		<h:outputLabel styleClass="labelForm" value="Sexo: " />
-		<p:spacer styleClass="spacerForm" />
-		<p:selectOneMenu id="sexo" disabled="true" binding="#{colaboradorViewMB.ddlSexo}">
-			<f:selectItem itemLabel="Masculino" itemValue="M" />
-			<f:selectItem itemLabel="Feminino" itemValue="F" />
-		</p:selectOneMenu>
-	</div>
+		<div class="org-form">
+			<h:outputLabel styleClass="labelForm" value="Relação: " />
+			<p:spacer styleClass="spacerForm" />
+			<p:selectOneMenu id="colaboradorRelacao" disabled="true" binding="#{colaboradorViewMB.ddlColaboradorRelacao}" />
+		</div>
 
-	<div class="org-form">
-		<h:outputLabel styleClass="labelForm" value="Setor: " />
-		<p:spacer styleClass="spacerForm" />
-		<p:selectOneMenu id="setor" disabled="true" binding="#{colaboradorViewMB.ddlSetor}" />
-	</div>
+		<div class="org-form">
+			<h:outputLabel styleClass="labelForm" value="Grau de Instrução: " />
+			<p:spacer styleClass="spacerForm" />
+			<p:selectOneMenu id="grauInstrucao" disabled="true" binding="#{colaboradorViewMB.ddlGrauInstrucao}" />
+		</div>
 
-	<div class="org-form">
-		<h:outputLabel styleClass="labelForm" value="Cargo: " />
-		<p:spacer styleClass="spacerForm" />
-		<p:selectOneMenu id="cargo" disabled="true" binding="#{colaboradorViewMB.ddlCargo}" />
-	</div>
+		<div class="org-form">
+			<h:outputLabel styleClass="labelForm" value="Profissao: " />
+			<p:spacer styleClass="spacerForm" />
+			<p:selectOneMenu id="profissao" disabled="true" binding="#{colaboradorViewMB.ddlProfissao}" />
+		</div>
 
-	<div class="org-form">
-		<h:outputLabel styleClass="labelForm" value="Lotacao: " />
-		<p:spacer styleClass="spacerForm" />
-		<p:selectOneMenu id="lotacao" disabled="true" binding="#{colaboradorViewMB.ddlLotacao}" />
-	</div>
+	</p:fieldset>
 
-	<div class="org-form">
-		<h:outputLabel styleClass="labelForm" value="Nacionalidade: " />
-		<p:spacer styleClass="spacerForm" />
-		<p:selectOneMenu id="nacionalidade" disabled="true" binding="#{colaboradorViewMB.ddlNacionalidade}" />
-	</div>
-
-	<div class="org-form">
-		<h:outputLabel styleClass="labelForm" value="Relação: " />
-		<p:spacer styleClass="spacerForm" />
-		<p:selectOneMenu id="colaboradorRelacao" disabled="true" binding="#{colaboradorViewMB.ddlColaboradorRelacao}" />
-	</div>
-
-	<div class="org-form">
-		<h:outputLabel styleClass="labelForm" value="Estado Civil: " />
-		<p:spacer styleClass="spacerForm" />
-		<p:selectOneMenu id="estadoCivil" disabled="true" binding="#{colaboradorViewMB.ddlEstadoCivil}" />
-	</div>
-
-	<div class="org-form">
-		<h:outputLabel styleClass="labelForm" value="Grau de Instrução: " />
-		<p:spacer styleClass="spacerForm" />
-		<p:selectOneMenu id="grauInstrucao" disabled="true" binding="#{colaboradorViewMB.ddlGrauInstrucao}" />
-	</div>
-
-	<div class="org-form">
-		<h:outputLabel styleClass="labelForm" value="Profissao: " />
-		<p:spacer styleClass="spacerForm" />
-		<p:selectOneMenu id="profissao" disabled="true" binding="#{colaboradorViewMB.ddlProfissao}" />
-	</div>
 
 	<div class="brForm" />
 

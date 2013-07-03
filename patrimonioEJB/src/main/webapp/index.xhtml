@@ -4,7 +4,7 @@
 
 <h:head>
 	<h:outputScript name="scripts.js" library="js" />
-	<h:outputStylesheet name="cssBasico.css" library="css" />
+	<h:outputStylesheet name="theme_redmond.css" library="css" />
 </h:head>
 
 <h:body>
@@ -13,8 +13,8 @@
 			<p:growl id="messages" />
 
 			<p:menubar>
-				<p:submenu label="Cadastro" icon="ui-icon-document">
-					<p:submenu label=" Colaboradores" icon="colaborador">
+				<p:submenu label="Cadastro">
+					<p:submenu label=" Colaboradores" icon="colaborador16">
 						<p:menuitem value="Colaborador" onclick="loadPage('/patrimonioEJB/pages/master/colaboradorMaster.xhtml')"/>
 					</p:submenu>
 					<p:menuitem value="" url="#" />

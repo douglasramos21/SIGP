@@ -1,4 +1,4 @@
-package com.patrimonio.converter;
+package com.patrimonio.utils.converter;
 
 import java.util.Map;
 
@@ -21,6 +21,7 @@ import com.patrimonio.model.Provincia;
 import com.patrimonio.model.Setor;
 import com.patrimonio.model.TipoDocumento;
 import com.patrimonio.model.TipoHorario;
+import com.patrimonio.model.TipoVisto;
 
 @FacesConverter("com.patrimonio.converter.SelectOneMenuConverter")
 public class SelectOneMenuConverter implements Converter {
@@ -67,6 +68,8 @@ public class SelectOneMenuConverter implements Converter {
 					obj = (TipoDocumento) value;
 				} else if (obj instanceof TipoHorario) {
 					obj = (TipoHorario) value;
+				} else if (obj instanceof TipoHorario) {
+					obj = (TipoVisto) value;
 				}
 
 				this.addAttribute(component, obj);

@@ -5,7 +5,7 @@
 	<p:fieldset toggleable="true" toggleSpeed="500" legend="Endereços">
 			
 			<p:dataTable var="endereco" value="#{colaboradorViewMB.colaborador.enderecos}" id="enderecos" 
-						editable="false" lazy="true" style="width: 65%" binding="#{colaboradorViewMB.dtbEndereco}">
+						editable="false" lazy="false" style="width: 65%" binding="#{colaboradorViewMB.dtbEndereco}">
 
 				<f:facet name="header">  
             			Endereços 
@@ -56,19 +56,19 @@
 		<div class="org-form">
 			<h:outputLabel styleClass="labelForm" value="E-mail " />
 			<p:spacer styleClass="spacerForm" />
-			<p:inputText id="email" value="#{colaboradorViewMB.colaborador.email}" disabled="true">
-				<p:ajax event="blur" update="msgEmail" />
-			</p:inputText>
-			<p:message id="msgEmail" for="email" display="icon" />
+			<p:inputText id="email" value="#{colaboradorViewMB.colaborador.email}" disabled="true"/>
+		</div>
+
+		<div class="org-form">
+			<h:outputLabel styleClass="labelForm" value="E-mail Alternativo " />
+			<p:spacer styleClass="spacerForm" />
+			<p:inputText id="emailAlternativo" value="#{colaboradorViewMB.colaborador.emailAlternativo}" disabled="true"/>
 		</div>
 
 		<div class="org-form">
 			<h:outputLabel styleClass="labelForm" value="Skype " />
 			<p:spacer styleClass="spacerForm" />
-			<p:inputText id="skype" value="#{colaboradorViewMB.colaborador.skype}" disabled="true">
-				<p:ajax event="blur" update="msgSkype" />
-			</p:inputText>
-			<p:message id="msgSkype" for="skype" display="icon" />
+			<p:inputText id="skype" value="#{colaboradorViewMB.colaborador.skype}" disabled="true"/>
 		</div>
 	</p:fieldset>
 

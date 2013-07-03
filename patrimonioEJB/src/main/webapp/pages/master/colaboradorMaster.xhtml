@@ -4,9 +4,7 @@
 	<h:form id="formColaborador" prependId="false">
 	
 		<pe:masterDetail id="masterDetail" selectLevelListener="#{selectLevelListener.handleNavigation}" showAllBreadcrumbItems="true">
-<!-- 			<f:facet name="header">
-				<p:messages showDetail="false" showSummary="true" />
-			</f:facet> -->
+			<p:growl showSummary="true" showDetail="true" id="growl"/>
 
 			<pe:masterDetailLevel level="1" contextVar="view" levelLabel="View">
 				<ui:include src="/pages/view/colaborador/colaboradorView.xhtml"></ui:include>

@@ -5,35 +5,28 @@ import java.io.Serializable;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletRequest;
 
 import com.patrimonio.model.User;
 
-
-
 @SessionScoped
-@ManagedBean(name="userMB")
+@ManagedBean(name = "userMB")
 public class UserMB implements Serializable {
 	public static final String INJECTION_NAME = "#{userMB}";
 	private static final long serialVersionUID = 1L;
 
 	private User user;
 
-//	public boolean isAdmin() {
-//		return user.isAdmin();
-//	}
+	// public boolean isAdmin() {
+	// return user.isAdmin();
+	// }
 
-//	public boolean isDefaultUser() {
-//		return user.isUser();
-//	}
+	// public boolean isDefaultUser() {
+	// return user.isUser();
+	// }
 
-	public String logOut() {
-		getRequest().getSession().invalidate();
+	public String logout() {
+		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
 		return "/login.xhtml";
-	}
-
-	private HttpServletRequest getRequest() {
-		return (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
 	}
 
 	public User getUser() {

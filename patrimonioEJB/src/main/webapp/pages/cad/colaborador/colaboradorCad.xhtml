@@ -7,12 +7,12 @@
 
 	<p:toolbar styleClass="toolbar">
 		<p:toolbarGroup>
-			<p:commandButton type="push" icon="save" actionListener="#{colaboradorViewMB.save()}" process="masterDetail">
+			<p:commandButton id="save" actionListener="#{colaboradorViewMB.save()}" icon="save24" process="masterDetail" title="Salvar" update="@form">
 				<pe:selectDetailLevel step="-1" />
 			</p:commandButton>
 			<p:separator />
 			<span/>
-			<p:commandButton type="push" actionListener="#{colaboradorViewMB.cancel()}" icon="cancel" process="@this">
+			<p:commandButton id="cancel" actionListener="#{colaboradorViewMB.cancel()}" icon="cancel24" process="@this" title="Cancelar">
 				<pe:selectDetailLevel step="-1"/>
 			</p:commandButton>
 			<span/>
@@ -22,124 +22,133 @@
 
 	<div class="brForm" />
 
-	<p:messages id="msgsCad" showSummary="true" globalOnly="true" />
-
-	<div class="org-form">
-		<h:outputLabel styleClass="labelForm" value="Empresa: " />
-		<p:spacer styleClass="spacerForm" />
-		<p:selectOneMenu id="empresaCad" value="#{colaboradorViewMB.colaborador.empresa}" converter="com.patrimonio.converter.SelectOneMenuConverter">
-			<f:selectItems value="#{colaboradorViewMB.listEmpresa}" var="empresa" itemLabel="#{empresa.nome}" itemValue="#{empresa}" />
-		</p:selectOneMenu>
-	</div>
-
-	<div class="org-form">
-		<h:outputLabel styleClass="labelForm" value="Matrícula: " />
-		<p:spacer styleClass="spacerForm" />
-		<p:inputText id="numMatriculaCad" value="#{colaboradorViewMB.colaborador.numMatricula}" styleClass="inputSmall" />
-	</div>
-
-	<div class="org-form">
-		<h:outputLabel styleClass="labelForm" value="Data Admissão: " />
-		<p:spacer styleClass="spacerForm" />
-		<p:calendar styleClass="calendarSmall" value="#{colaboradorViewMB.colaborador.dataAdmissao}" locale="pt" showButtonPanel="true" navigator="true" id="dataAdmissaoCad" pattern="dd/MM/yyyy" effect="slide" yearRange="c-100:c-0" required="true">
-		</p:calendar>
-	</div>
-
-	<div class="org-form">
-		<h:outputLabel styleClass="labelForm" value="Nome Completo: " />
-		<p:spacer styleClass="spacerForm" />
-		<p:inputText id="nomeCad" value="#{colaboradorViewMB.colaborador.nome}" styleClass="inputLarge" required="true">
-		</p:inputText>
-	</div>
-
-	<div class="org-form">
-		<h:outputLabel styleClass="labelForm" value="Apelido: " />
-		<p:spacer styleClass="spacerForm" />
-		<p:inputText id="apelidoCad" value="#{colaboradorViewMB.colaborador.apelido}">
-		</p:inputText>
-	</div>
-
-	<div class="brForm" />
-
-	<div class="org-form">
-		<h:outputLabel styleClass="labelForm" value="Data Nascimento: " />
-		<p:spacer styleClass="spacerForm" />
-		<p:calendar styleClass="calendarSmall" value="#{colaboradorViewMB.colaborador.dataNascimento}" locale="pt" showButtonPanel="true" navigator="true" id="dataNascimentoCad" pattern="dd/MM/yyyy" effect="slide" yearRange="c-100:c-0" required="true">
-		</p:calendar>
-	</div>
-
-	<div class="org-form">
-		<h:outputLabel styleClass="labelForm" value="Sexo: " />
-		<p:spacer styleClass="spacerForm" />
-		<p:selectOneMenu id="sexoCad" value="#{colaboradorViewMB.colaborador.sexo}">
-			<f:selectItem itemLabel="Masculino" itemValue="M" />
-			<f:selectItem itemLabel="Feminino" itemValue="F" />
-		</p:selectOneMenu>
-	</div>
-
-	<div class="org-form">
-		<h:outputLabel styleClass="labelForm" value="Setor: " />
-		<p:spacer styleClass="spacerForm" />
-		<p:selectOneMenu id="setorCad" value="#{colaboradorViewMB.colaborador.setor}" converter="com.patrimonio.converter.SelectOneMenuConverter">
-			<f:selectItems value="#{colaboradorViewMB.listSetor}" var="setor" itemLabel="#{setor.nome}" itemValue="#{setor}" />
-		</p:selectOneMenu>
-	</div>
-
-	<div class="org-form">
-		<h:outputLabel styleClass="labelForm" value="Cargo: " />
-		<p:spacer styleClass="spacerForm" />
-		<p:selectOneMenu id="cargoCad" value="#{colaboradorViewMB.colaborador.cargo}" converter="com.patrimonio.converter.SelectOneMenuConverter">
-			<f:selectItems value="#{colaboradorViewMB.listCargo}" var="cargo" itemLabel="#{cargo.nome}" itemValue="#{cargo}" />
-		</p:selectOneMenu>
-	</div>
-
-	<div class="org-form">
-		<h:outputLabel styleClass="labelForm" value="Lotacao: " />
-		<p:spacer styleClass="spacerForm" />
-		<p:selectOneMenu id="lotacaoCad" value="#{colaboradorViewMB.colaborador.lotacao}" converter="com.patrimonio.converter.SelectOneMenuConverter">
-			<f:selectItems value="#{colaboradorViewMB.listLotacao}" var="lotacao" itemLabel="#{lotacao.nome}" itemValue="#{lotacao}" />
-		</p:selectOneMenu>
-	</div>
-
-	<div class="org-form">
-		<h:outputLabel styleClass="labelForm" value="Nacionalidade: " />
-		<p:spacer styleClass="spacerForm" />
-		<p:selectOneMenu id="nacionalidadeCad" value="#{colaboradorViewMB.colaborador.nacionalidade}" converter="com.patrimonio.converter.SelectOneMenuConverter">
-			<f:selectItems value="#{colaboradorViewMB.listNacionalidade}" var="nacionalidade" itemLabel="#{nacionalidade.nome}" itemValue="#{nacionalidade}" />
-		</p:selectOneMenu>
-	</div>
-
-	<div class="org-form">
-		<h:outputLabel styleClass="labelForm" value="Relação: " />
-		<p:spacer styleClass="spacerForm" />
-		<p:selectOneMenu id="colaboradorRelacaoCad" value="#{colaboradorViewMB.colaborador.colaboradorRelacao}" converter="com.patrimonio.converter.SelectOneMenuConverter">
-			<f:selectItems value="#{colaboradorViewMB.listColaboradorRelacao}" var="colaboradorRelacao" itemLabel="#{colaboradorRelacao.nome}" itemValue="#{colaboradorRelacao}" />
-		</p:selectOneMenu>
-	</div>
-
-	<div class="org-form">
-		<h:outputLabel styleClass="labelForm" value="Estado Civil: " />
-		<p:spacer styleClass="spacerForm" />
-		<p:selectOneMenu id="estadoCivilCad" value="#{colaboradorViewMB.colaborador.estadoCivil}" converter="com.patrimonio.converter.SelectOneMenuConverter">
-			<f:selectItems value="#{colaboradorViewMB.listEstadoCivil}" var="estadoCivil" itemLabel="#{estadoCivil.nome}" itemValue="#{estadoCivil}" />
-		</p:selectOneMenu>
-	</div>
-
-	<div class="org-form">
-		<h:outputLabel styleClass="labelForm" value="Grau de Instrução: " />
-		<p:spacer styleClass="spacerForm" />
-		<p:selectOneMenu id="grauInstrucaoCad" value="#{colaboradorViewMB.colaborador.grauInstrucao}" converter="com.patrimonio.converter.SelectOneMenuConverter">
-			<f:selectItems value="#{colaboradorViewMB.listGrauInstrucao}" var="grauInstrucao" itemLabel="#{grauInstrucao.nome}" itemValue="#{grauInstrucao}" />
-		</p:selectOneMenu>
-	</div>
-
-	<div class="org-form">
-		<h:outputLabel styleClass="labelForm" value="Profissao: " />
-		<p:spacer styleClass="spacerForm" />
-		<p:selectOneMenu id="profissaoCad" value="#{colaboradorViewMB.colaborador.profissao}" converter="com.patrimonio.converter.SelectOneMenuConverter">
-			<f:selectItems value="#{colaboradorViewMB.listProfissao}" var="profissao" itemLabel="#{profissao.nome}" itemValue="#{profissao}" />
-		</p:selectOneMenu>
-	</div>
+	<p:messages id="msgsCad" showSummary="true" globalOnly="true"/>
+	
+	<p:fieldset id="fieldsetColDadosPessoaisCad" toggleable="true" legend="Dados Pessoais">
+	
+		<div class="org-form">
+			<h:outputLabel styleClass="labelForm" value="Matrícula: " />
+			<p:spacer styleClass="spacerForm" />
+			<p:inputText id="numMatriculaCad" value="#{colaboradorViewMB.colaborador.numMatricula}" styleClass="inputSmall" />
+		</div>
+	
+		<div class="org-form">
+			<h:outputLabel styleClass="labelForm" value="Nome Completo: " />
+			<p:spacer styleClass="spacerForm" />
+			<p:inputText id="nomeCad" value="#{colaboradorViewMB.colaborador.nome}" styleClass="inputLarge" required="true">
+				<p:ajax event="blur" listener="#{colaboradorViewMB.loadApelido()}" update="apelidoCad" onstart="upppercase($('#nomeCad'));"/>
+			</p:inputText>
+		</div>
+	
+		<div class="org-form">
+			<h:outputLabel styleClass="labelForm" value="Apelido: " />
+			<p:spacer styleClass="spacerForm" />
+			<p:inputText id="apelidoCad" value="#{colaboradorViewMB.colaborador.apelido}">
+			</p:inputText>
+		</div>
+		
+		<div class="org-form">
+			<h:outputLabel styleClass="labelForm" value="Data Nascimento: " />
+			<p:spacer styleClass="spacerForm" />
+			<p:calendar styleClass="calendarSmall" value="#{colaboradorViewMB.colaborador.dataNascimento}" locale="pt" showButtonPanel="true" navigator="true" id="dataNascimentoCad" pattern="dd/MM/yyyy" effect="slide" yearRange="c-100:c-0" required="true">
+			</p:calendar>
+		</div>
+		
+		<div class="org-form">
+			<h:outputLabel styleClass="labelForm" value="Sexo: " />
+			<p:spacer styleClass="spacerForm" />
+			<p:selectOneRadio id="sexoCad" value="#{colaboradorViewMB.colaborador.sexo}">
+				<f:selectItem itemLabel="Masc." itemValue="M" />
+				<f:selectItem itemLabel="Fem." itemValue="F" />
+			</p:selectOneRadio>
+		</div>
+		
+		<div class="brForm"/>
+		
+		<div class="org-form">
+			<h:outputLabel styleClass="labelForm" value="Nacionalidade: " />
+			<p:spacer styleClass="spacerForm" />
+			<p:selectOneMenu id="nacionalidadeCad" value="#{colaboradorViewMB.colaborador.nacionalidade}" converter="com.patrimonio.converter.SelectOneMenuConverter">
+				<f:selectItems value="#{colaboradorViewMB.listNacionalidade}" var="nacionalidade" itemLabel="#{nacionalidade.nome}" itemValue="#{nacionalidade}" />
+			</p:selectOneMenu>
+		</div>
+		
+		<div class="org-form">
+			<h:outputLabel styleClass="labelForm" value="Estado Civil: " />
+			<p:spacer styleClass="spacerForm" />
+			<p:selectOneMenu id="estadoCivilCad" value="#{colaboradorViewMB.colaborador.estadoCivil}" converter="com.patrimonio.converter.SelectOneMenuConverter">
+				<f:selectItems value="#{colaboradorViewMB.listEstadoCivil}" var="estadoCivil" itemLabel="#{estadoCivil.nome}" itemValue="#{estadoCivil}" />
+			</p:selectOneMenu>
+		</div>
+	
+	</p:fieldset>
+	
+	<p:fieldset id="fieldsetColDadosProfissionaisCad" toggleable="true" legend="Dados Profissionais" >
+	
+		<div class="org-form">
+			<h:outputLabel styleClass="labelForm" value="Empresa: " />
+			<p:spacer styleClass="spacerForm" />
+			<p:selectOneMenu id="empresaCad" value="#{colaboradorViewMB.colaborador.empresa}" converter="com.patrimonio.converter.SelectOneMenuConverter">
+				<f:selectItems value="#{colaboradorViewMB.listEmpresa}" var="empresa" itemLabel="#{empresa.nome}" itemValue="#{empresa}" />
+			</p:selectOneMenu>
+		</div>
+	
+			<div class="org-form">
+			<h:outputLabel styleClass="labelForm" value="Data Admissão: " />
+			<p:spacer styleClass="spacerForm" />
+			<p:calendar styleClass="calendarSmall" value="#{colaboradorViewMB.colaborador.dataAdmissao}" locale="pt" showButtonPanel="true" navigator="true" id="dataAdmissaoCad" pattern="dd/MM/yyyy" effect="slide" yearRange="c-100:c-0" required="true">
+			</p:calendar>
+		</div>
+		
+		<div class="org-form">
+			<h:outputLabel styleClass="labelForm" value="Setor: " />
+			<p:spacer styleClass="spacerForm" />
+			<p:selectOneMenu id="setorCad" value="#{colaboradorViewMB.colaborador.setor}" converter="com.patrimonio.converter.SelectOneMenuConverter">
+				<f:selectItems value="#{colaboradorViewMB.listSetor}" var="setor" itemLabel="#{setor.nome}" itemValue="#{setor}" />
+			</p:selectOneMenu>
+		</div>
+	
+		<div class="org-form">
+			<h:outputLabel styleClass="labelForm" value="Cargo: " />
+			<p:spacer styleClass="spacerForm" />
+			<p:selectOneMenu id="cargoCad" value="#{colaboradorViewMB.colaborador.cargo}" converter="com.patrimonio.converter.SelectOneMenuConverter">
+				<f:selectItems value="#{colaboradorViewMB.listCargo}" var="cargo" itemLabel="#{cargo.nome}" itemValue="#{cargo}" />
+			</p:selectOneMenu>
+		</div>
+	
+		<div class="org-form">
+			<h:outputLabel styleClass="labelForm" value="Lotacao: " />
+			<p:spacer styleClass="spacerForm" />
+			<p:selectOneMenu id="lotacaoCad" value="#{colaboradorViewMB.colaborador.lotacao}" converter="com.patrimonio.converter.SelectOneMenuConverter">
+				<f:selectItems value="#{colaboradorViewMB.listLotacao}" var="lotacao" itemLabel="#{lotacao.nome}" itemValue="#{lotacao}" />
+			</p:selectOneMenu>
+		</div>
+	
+		<div class="org-form">
+			<h:outputLabel styleClass="labelForm" value="Relação: " />
+			<p:spacer styleClass="spacerForm" />
+			<p:selectOneMenu id="colaboradorRelacaoCad" value="#{colaboradorViewMB.colaborador.colaboradorRelacao}" converter="com.patrimonio.converter.SelectOneMenuConverter">
+				<f:selectItems value="#{colaboradorViewMB.listColaboradorRelacao}" var="colaboradorRelacao" itemLabel="#{colaboradorRelacao.nome}" itemValue="#{colaboradorRelacao}" />
+			</p:selectOneMenu>
+		</div>
+	
+		<div class="org-form">
+			<h:outputLabel styleClass="labelForm" value="Grau de Instrução: " />
+			<p:spacer styleClass="spacerForm" />
+			<p:selectOneMenu id="grauInstrucaoCad" value="#{colaboradorViewMB.colaborador.grauInstrucao}" converter="com.patrimonio.converter.SelectOneMenuConverter">
+				<f:selectItems value="#{colaboradorViewMB.listGrauInstrucao}" var="grauInstrucao" itemLabel="#{grauInstrucao.nome}" itemValue="#{grauInstrucao}" />
+			</p:selectOneMenu>
+		</div>
+	
+		<div class="org-form">
+			<h:outputLabel styleClass="labelForm" value="Profissao: " />
+			<p:spacer styleClass="spacerForm" />
+			<p:selectOneMenu id="profissaoCad" value="#{colaboradorViewMB.colaborador.profissao}" converter="com.patrimonio.converter.SelectOneMenuConverter">
+				<f:selectItems value="#{colaboradorViewMB.listProfissao}" var="profissao" itemLabel="#{profissao.nome}" itemValue="#{profissao}" />
+			</p:selectOneMenu>
+		</div>
+	
+	</p:fieldset>
 
 	<div class="brForm" />
 

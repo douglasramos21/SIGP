@@ -2,11 +2,15 @@ package com.patrimonio.utils;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import javax.faces.context.FacesContext;
 import javax.faces.context.Flash;
 
 public class Utils {
+	
+	private static final String EMAIL_PATTERN = "^[_A-Za-z0-9-\\+]+(\\.[_A-Za-z0-9-]+)*@[A-Za-z0-9-]+(\\.[A-Za-z0-9]+)*(\\.[A-Za-z]{2,})$";
 
 	public static String dataFormatPt(Date data) {
 		SimpleDateFormat dt = new SimpleDateFormat("dd/MM/yyyy");
@@ -15,9 +19,13 @@ public class Utils {
 			String dataFormatada = dt.format(data);
 			return dataFormatada;
 		}
-
 		return null;
-
+	}
+	
+	public static boolean emailValidate(final String hex) {
+		Pattern pattern = Pattern.compile(EMAIL_PATTERN);
+		Matcher matcher = pattern.matcher(hex);
+		return matcher.matches();
 	}
 
 	public static String sexoCharForString(Character sexo) {

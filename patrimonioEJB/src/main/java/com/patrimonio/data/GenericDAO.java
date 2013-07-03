@@ -73,10 +73,8 @@ public abstract class GenericDAO implements Serializable {
 			ut.begin();
 			joinTransaction();
 			if (entity.getId() == null) {
-				System.out.println("NOVO");
 				em.persist(entity);
 			} else {
-				System.out.println("UPDATE");
 				em.merge(entity);
 			}
 		} finally {

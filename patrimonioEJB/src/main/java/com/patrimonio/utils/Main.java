@@ -93,10 +93,11 @@ public class Main {
 
 	public static void main(String[] args) {
 		
-		Character ch = new Character(' ');
+		String nome = "DOUGLASNUNESXAVIERRAMOS";
 		
-		System.out.println(Character.charCount(ch));
+		nome = nome.substring(0,nome.indexOf(" "));
 		
+		System.out.println(nome);
 		
 		
 	}

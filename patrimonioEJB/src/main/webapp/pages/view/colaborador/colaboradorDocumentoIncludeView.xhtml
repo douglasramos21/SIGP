@@ -17,9 +17,9 @@
 			<p:column headerText="Local Emissão" style="width:10%">
 				<h:outputText value="#{documento.localEmissao.nome}" />
 			</p:column>
-			<p:column headerText="Tipo" style="width:10%">
-				<h:outputText value="#{documento.classificacaoDocumento}" rendered="#{documento.classificacaoDocumento != null || !documento.classificacaoDocumento.equals('')}"/>
-				<h:outputText value="#{documento.tipoVisto.nome}" rendered="#{documento.tipoVisto != null}"/>
+			<p:column headerText="Classificação" style="width:10%">
+				<h:outputText value="#{documento.classificacaoDocumento}" rendered="#{documento.classificacaoDocumento != null and !documento.classificacaoDocumento.equals('')}"/>
+				<h:outputText value="#{documento.tipoVisto.sigla}" rendered="#{documento.tipoVisto != null}"/>
 			</p:column>
 			<p:column headerText="Data Emissão" style="width:10%">
 				<h:outputText value="#{documento.dataEmissaoFormatada}" />

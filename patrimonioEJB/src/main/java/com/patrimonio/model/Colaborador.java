@@ -52,6 +52,7 @@ public class Colaborador extends EntityBean implements Serializable {
 	private Profissao profissao;
 	private TipoHorario tipoHorario;
 	private String email;
+	private String emailAlternativo;
 	private String skype;
 	private Double salarioBase;
 	private String observacao;
@@ -215,6 +216,15 @@ public class Colaborador extends EntityBean implements Serializable {
 	@Column(name = "email")
 	public String getEmail() {
 		return email;
+	}
+
+	public void setEmailAlternativo(String emailAlternativo) {
+		this.emailAlternativo = emailAlternativo;
+	}
+
+	@Column(name = "email_alternativo")
+	public String getEmailAlternativo() {
+		return emailAlternativo;
 	}
 
 	public void setEmail(String email) {
@@ -382,7 +392,7 @@ public class Colaborador extends EntityBean implements Serializable {
 		this.localNascimento = localNascimento;
 	}
 
-	@OneToMany(mappedBy = "colaborador", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "colaborador", fetch = FetchType.LAZY, targetEntity = ColaboradorDependente.class, cascade = CascadeType.ALL, orphanRemoval = true)
 	public List<ColaboradorDependente> getDependentes() {
 		return dependentes;
 	}
@@ -391,7 +401,7 @@ public class Colaborador extends EntityBean implements Serializable {
 		this.dependentes = dependentes;
 	}
 
-	@OneToMany(mappedBy = "colaborador", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "colaborador", fetch = FetchType.LAZY, targetEntity = ColaboradorEndereco.class, cascade = CascadeType.ALL, orphanRemoval = true)
 	public List<ColaboradorEndereco> getEnderecos() {
 		return enderecos;
 	}
@@ -400,7 +410,7 @@ public class Colaborador extends EntityBean implements Serializable {
 		this.enderecos = enderecos;
 	}
 
-	@OneToMany(mappedBy = "colaborador", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+	@OneToMany(mappedBy = "colaborador", fetch = FetchType.LAZY, targetEntity = ColaboradorDocumento.class, cascade = CascadeType.ALL, orphanRemoval = true)
 	public List<ColaboradorDocumento> getDocumentos() {
 		return documentos;
 	}

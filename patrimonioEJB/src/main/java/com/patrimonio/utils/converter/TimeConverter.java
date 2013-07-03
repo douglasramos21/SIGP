@@ -1,4 +1,4 @@
-package com.patrimonio.converter;
+package com.patrimonio.utils.converter;
 
 import java.sql.Time;
 

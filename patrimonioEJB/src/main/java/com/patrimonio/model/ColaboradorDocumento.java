@@ -55,7 +55,6 @@ public class ColaboradorDocumento extends EntityBean implements Serializable {
 		this.colaborador = colaborador;
 	}
 
-	
 	@Transient
 	public String getDataEmissaoFormatada() {
 		return Utils.dataFormatPt(getDataEmissao());
