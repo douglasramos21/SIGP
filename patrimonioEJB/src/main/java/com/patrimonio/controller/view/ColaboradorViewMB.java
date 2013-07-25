@@ -96,7 +96,7 @@ public class ColaboradorViewMB extends GenericMB implements InterfaceViewMB {
 	private transient SelectOneMenu ddlTipoHorario = new SelectOneMenu();
 	private transient SelectOneMenu ddlTipoDocumento = new SelectOneMenu();
 	private transient SelectOneMenu ddlTipoEndereco = new SelectOneMenu();
-	private transient HtmlSelectOneMenu ddlTipoVisto = new HtmlSelectOneMenu();
+	private transient HtmlSelectOneMenu ddlTipoVisto = new SelectOneMenu();
 	private transient Calendar calDiaIni = new Calendar();
 	private transient Calendar calDiaFim = new Calendar();
 	private transient Calendar calTardeIni = new Calendar();
@@ -111,8 +111,8 @@ public class ColaboradorViewMB extends GenericMB implements InterfaceViewMB {
 
 	@PostConstruct
 	public void init() throws Exception {
-
-		pesquisar();
+		
+ 		pesquisar();
 		if (!FacesContext.getCurrentInstance().isPostback()) {
 			setColaborador((Colaborador) FacesContext.getCurrentInstance().getExternalContext().getSessionMap().get("colaborador"));
 			if (getColaborador() == null || getColaborador().getId() == null) {
@@ -121,6 +121,7 @@ public class ColaboradorViewMB extends GenericMB implements InterfaceViewMB {
 				carregaObjetos();
 			}
 		}
+		
 	}
 
 	@Override
@@ -167,15 +168,19 @@ public class ColaboradorViewMB extends GenericMB implements InterfaceViewMB {
 
 	@Override
 	public void cancel() throws Exception {
-
+		
+		setColaborador(getStateContext());
+		
 		if (getColaborador() == null || getColaborador().getId() == null) {
 			hideToolbarButtons();
-			// removeSelectItemsDefault();
-			// addSelectItemsDefault();
 			setSelectItemsDefault();
 		} else {
 			showToolbarButtons();
 			setSelectItems();
+		}
+		
+		for (ColaboradorDocumento colDoc : getColaborador().getDocumentos()) {
+			System.out.println(colDoc.getTipoDocumento().getNome());
 		}
 
 		saveStateContext();
@@ -187,7 +192,7 @@ public class ColaboradorViewMB extends GenericMB implements InterfaceViewMB {
 			getColaborador().setEnderecos(getListaEnderecos());
 			getColaborador().setDependentes(getListaDependentes());
 			getColaborador().setDocumentos(getListaDocumentos());
-			
+
 			getColaboradorBP().save(getColaborador());
 			saveSuccess(getColaborador());
 			setSelectItems();
@@ -408,17 +413,20 @@ public class ColaboradorViewMB extends GenericMB implements InterfaceViewMB {
 			setListTipoDocumento(((List<TipoDocumento>) getColaboradorBP().findAll(TipoDocumento.class)));
 			setListFiliacao(((List<Filiacao>) getColaboradorBP().findAll(Filiacao.class)));
 			setListProvincia(((List<Provincia>) getColaboradorBP().findAll(Provincia.class)));
+			setListTipoVisto((List<TipoVisto>) getColaboradorBP().findAll(TipoVisto.class));
 
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
 
-	public void loadTabSelectItems() {
-		populateSelectItemsFromList(getListTipoDocumento(), getDdlTipoDocumento());
-		populateSelectItemsFromList(getListFiliacao(), getDdlFiliacao());
-		populateSelectItemsFromList(getListProvincia(), getDdlProvincia());
-	}
+	// public void loadTabSelectItems() {
+	// populateSelectItemsFromList(getListTipoDocumento(),
+	// getDdlTipoDocumento());
+	// populateSelectItemsFromList(getListFiliacao(), getDdlFiliacao());
+	// populateSelectItemsFromList(getListProvincia(), getDdlProvincia());
+	// populateSelectItemsFromList(getListTipoVisto(), getDdlTipoVisto());
+	// }
 
 	public void setLists() {
 		// getListSetor().add(getColaborador().getSetor());
@@ -659,13 +667,21 @@ public class ColaboradorViewMB extends GenericMB implements InterfaceViewMB {
 		}
 	}
 
-	private void populateSelectItemsFromList(List<?> Lista, SelectOneMenu ddlList) {
+	private <T> void populateSelectItemsFromList(List<?> Lista, Object ddlList) {
+
+		HtmlSelectOneMenu selectOneMenu = null;
+
+		if (ddlList instanceof HtmlSelectOneMenu) {
+			selectOneMenu = (HtmlSelectOneMenu) ddlList;
+		} else if (ddlList instanceof SelectOneMenu) {
+			selectOneMenu = (SelectOneMenu) ddlList;
+		}
 
 		for (Object object : Lista) {
 			try {
 				Method methodLabel = object.getClass().getMethod("getNome", new Class<?>[] {});
 				String itemLabel = ((String) methodLabel.invoke(object));
-				addItemSelectOneMenu(ddlList, object, itemLabel);
+				addItemSelectOneMenu(selectOneMenu, object, itemLabel);
 
 			} catch (NoSuchMethodException e) {
 				e.printStackTrace();
@@ -679,6 +695,7 @@ public class ColaboradorViewMB extends GenericMB implements InterfaceViewMB {
 				e.printStackTrace();
 			}
 		}
+
 	}
 
 	private void clearSelectItemsFromList(SelectOneMenu ddlList) {
@@ -688,24 +705,37 @@ public class ColaboradorViewMB extends GenericMB implements InterfaceViewMB {
 		}
 	}
 
-	public void addItemSelectOneMenu(SelectOneMenu ddlList, Object itemValue, String itemLabel) {
+	public void addItemSelectOneMenu(Object ddlList, Object itemValue, String itemLabel) {
+		HtmlSelectOneMenu selectOneMenu = null;
+
+		if (ddlList instanceof HtmlSelectOneMenu) {
+			selectOneMenu = (HtmlSelectOneMenu) ddlList;
+		} else if (ddlList instanceof SelectOneMenu) {
+			selectOneMenu = (SelectOneMenu) ddlList;
+		}
+
 		UISelectItem item = new UISelectItem();
 		item.setItemValue(itemValue);
 		item.setItemLabel(itemLabel);
-		ddlList.getChildren().add(item);
+		selectOneMenu.getChildren().add(item);
 	}
 
 	public void removeItemSelectOneMenu(SelectOneMenu ddlList, Object itemValue, String itemLabel) {
+		HtmlSelectOneMenu selectOneMenu = null;
+
+		if (ddlList instanceof HtmlSelectOneMenu) {
+			selectOneMenu = (HtmlSelectOneMenu) ddlList;
+		} else if (ddlList instanceof SelectOneMenu) {
+			selectOneMenu = (SelectOneMenu) ddlList;
+		}
+
 		UISelectItem item = new UISelectItem();
 		item.setItemValue(itemValue);
 		item.setItemLabel(itemLabel);
-		ddlList.getChildren().remove(item);
+		selectOneMenu.getChildren().remove(item);
 	}
 
 	public String addEnderecoRow() {
-
-		// setColaborador(getStateContext());
-
 		ColaboradorEndereco colEnd = new ColaboradorEndereco();
 		colEnd.setColaborador(getColaborador());
 		colEnd.setEndereco("");
@@ -717,8 +747,6 @@ public class ColaboradorViewMB extends GenericMB implements InterfaceViewMB {
 	}
 
 	public String addDependenteRow() {
-		// setColaborador(getStateContext());
-
 		ColaboradorDependente colDep = new ColaboradorDependente();
 		colDep.setColaborador(getColaborador());
 		colDep.setNome("");
@@ -731,9 +759,6 @@ public class ColaboradorViewMB extends GenericMB implements InterfaceViewMB {
 	}
 
 	public String addDocumentoRow() {
-
-		// setColaborador(getStateContext());
-
 		ColaboradorDocumento colDoc = new ColaboradorDocumento();
 		colDoc.setColaborador(getColaborador());
 		colDoc.setClassificacaoDocumento("");
@@ -743,35 +768,29 @@ public class ColaboradorViewMB extends GenericMB implements InterfaceViewMB {
 		colDoc.setDataEmissao(new Date());
 		colDoc.setDataValidade(new Date());
 		getListaDocumentos().add(colDoc);
-		
+
 		return null;
 
 	}
-	
-	
-	public void changeClassDocumento(ColaboradorDocumento colDoc){
-		
-		System.out.println("entrou");
-		
-//		if(colDoc.getTipoDocumento() != null && colDoc.getTipoDocumento().getNome().equals("Visto")){
-//			getDdlTipoVisto().setRendered(true);
-//			getDocClass().setRendered(false);
-//			getDdlTipoVisto().setStyle("display: inline");
-//			getDocClass().setStyle("display: none");
-//			
-//		} else {
-//			getDdlTipoVisto().setRendered(false);
-//			getDocClass().setRendered(true);
-//			getDdlTipoVisto().setStyle("display: none");
-//			getDocClass().setStyle("display: inline");
-//		}
-		
-	}
 
-	public String removeEnderecoRow() {
+	// public void changeClassDocumento(ColaboradorDocumento colDoc) {
+	// if (colDoc.getTipoDocumento() != null &&
+	// colDoc.getTipoDocumento().getNome().equals("Visto")) {
+	// getDdlTipoVisto().setRendered(true);
+	// getDocClass().setRendered(false);
+	// // getDdlTipoVisto().setStyle("display: inline");
+	// // getDocClass().setStyle("display: none");
+	//
+	// } else {
+	// getDdlTipoVisto().setRendered(false);
+	// getDocClass().setRendered(true);
+	// // getDdlTipoVisto().setStyle("display: none");
+	// // getDocClass().setStyle("display: inline");
+	// }
+	//
+	// }
 
-		// setColaborador(getStateContext());
-
+	public void removeEnderecoRow() {
 		if (getListaEnderecos() != null && !getListaEnderecos().isEmpty()) {
 			ColaboradorEndereco colEnd = new ColaboradorEndereco();
 			for (int i = 0; i < getListaEnderecos().size(); i++) {
@@ -783,15 +802,9 @@ public class ColaboradorViewMB extends GenericMB implements InterfaceViewMB {
 				}
 			}
 		}
-
-		return null;
-
 	}
 
-	public String removeDependenteRow() {
-
-		// setColaborador(getStateContext());
-
+	public void removeDependenteRow() {
 		if (getListaDependentes() != null && !getListaDependentes().isEmpty()) {
 			ColaboradorDependente colDep = new ColaboradorDependente();
 			for (int i = 0; i < getListaDependentes().size(); i++) {
@@ -803,13 +816,21 @@ public class ColaboradorViewMB extends GenericMB implements InterfaceViewMB {
 				}
 			}
 		}
-
-		return null;
 	}
 
-	public String removeDocumentoRow() {
+	public void removeDocumentoRowEdit() {
+		removeDocumentoRow(true);
+	}
 
-		// setColaborador(getStateContext());
+	public void removeDocumentoRowEditCancel() {
+		removeDocumentoRow(false);
+	}
+	
+	public void removeDocumentoRow(){
+		removeDocumentoRow(false);
+	}
+
+	private void removeDocumentoRow(boolean isDone) {
 
 		if (getListaDocumentos() != null && !getListaDocumentos().isEmpty()) {
 			ColaboradorDocumento colDoc = new ColaboradorDocumento();
@@ -817,19 +838,67 @@ public class ColaboradorViewMB extends GenericMB implements InterfaceViewMB {
 
 				colDoc = getListaDocumentos().get(i);
 
-				if ((colDoc.getClassificacaoDocumento() != null && colDoc.getClassificacaoDocumento().trim().equals("")) || (colDoc.getClassificacaoDocumento() == null && colDoc.getTipoVisto() == null) || colDoc.getDataEmissao() == null || colDoc.getDataValidade() == null) {
+				if (((colDoc.getClassificacaoDocumento() == null || colDoc.getClassificacaoDocumento().trim().equals("")) && colDoc.getTipoVisto() == null) 
+						|| (colDoc.getDataEmissao() == null) 
+						|| (colDoc.getDataValidade() == null) 
+						|| (colDoc.getNumDocumento() == null || colDoc.getNumDocumento().trim().equals(""))) {
 
 					getListaDocumentos().remove(i);
+
+				} else if (isDone) {
+					if (getListaDocumentos().get(i).getTipoDocumento().getNome().equals("Visto")) {
+						getListaDocumentos().get(i).setClassificacaoDocumento(null);
+					} else {
+						getListaDocumentos().get(i).setTipoVisto(null);
+					}
 				}
 			}
 		}
-
-		return null;
-
 	}
 	
-	public void removeRowOnButton(ColaboradorDocumento documento){
-		getListaDocumentos().remove(documento);
+	// public void removeDocumentoAtList(ColaboradorDocumento colDoc) {
+	// for (int i = 0; i < getListaDocumentos().size(); i++) {
+	// if (getListaDocumentos().get(i).equals(colDoc)) {
+	// getListaDocumentos().remove(i);
+	// break;
+	// }
+	// }
+	// }
+
+	// public void clearClassificacaoDocumento(ColaboradorDocumento colDoc) {
+	// for (int i = 0; i < getListaDocumentos().size(); i++) {
+	// if (colDoc.equals(getListaDocumentos().get(i))) {
+	// if
+	// (getListaDocumentos().get(i).getTipoDocumento().getNome().equals("Visto"))
+	// {
+	// getListaDocumentos().get(i).setClassificacaoDocumento(null);
+	// } else {
+	// getListaDocumentos().get(i).setTipoVisto(null);
+	// }
+	// break;
+	// }
+	// }
+	// }
+
+	// public void removeDocumentoRow(ColaboradorDocumento colDoc) {
+	// if (((colDoc.getClassificacaoDocumento() == null ||
+	// colDoc.getClassificacaoDocumento().trim().equals("")) &&
+	// colDoc.getTipoVisto() == null)
+	// || (colDoc.getDataEmissao() == null)
+	// || (colDoc.getDataValidade() == null)
+	// || (colDoc.getNumDocumento() == null ||
+	// colDoc.getNumDocumento().trim().equals(""))) {
+	//
+	// getListaDocumentos().remove(colDoc);
+	// }
+	// }
+
+	public void removeRowOnButton(ColaboradorDocumento documento) {
+		for (int i = 0; i < getListaDocumentos().size(); i++) {
+			if(getListaDocumentos().get(i).getNumDocumento().equals(documento.getNumDocumento())){
+				getListaDocumentos().remove(i);
+			}
+		}
 	}
 
 	public void loadApelido() {
@@ -1241,6 +1310,14 @@ public class ColaboradorViewMB extends GenericMB implements InterfaceViewMB {
 	public void setDocClass(InputText docClass) {
 		this.docClass = docClass;
 	}
+
+	// public HtmlSelectOneMenu getDdlTipoVisto() {
+	// return ddlTipoVisto;
+	// }
+	//
+	// public void setDdlTipoVisto(HtmlSelectOneMenu ddlTipoVisto) {
+	// this.ddlTipoVisto = ddlTipoVisto;
+	// }
 
 	public HtmlSelectOneMenu getDdlTipoVisto() {
 		return ddlTipoVisto;

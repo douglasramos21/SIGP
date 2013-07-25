@@ -13,11 +13,11 @@
 			<p:separator />
 			
 			<p:commandButton id="new" binding="#{colaboradorViewMB.btnNovo}" 
-								actionListener="#{colaboradorViewMB.novo()}" icon="new24" process="@this" title="Novo">
-				<pe:selectDetailLevel step="1" />
+								actionListener="#{colaboradorViewMB.novo()}" icon="new24" title="Novo">
+				<pe:selectDetailLevel step="1"/>
 			</p:commandButton>
 			<p:commandButton id="edit" binding="#{colaboradorViewMB.btnEditar}" 
-								actionListener="#{colaboradorViewMB.edit()}" icon="edit24" process="@this" title="Editar">
+								actionListener="#{colaboradorViewMB.edit()}" icon="edit24" title="Editar">
 				<pe:selectDetailLevel step="1" />
 			</p:commandButton>
 			<p:commandButton id="delete" binding="#{colaboradorViewMB.btnExcluir}" icon="delete24" 
@@ -30,7 +30,7 @@
 
 	<p:messages id="msgsView" showSummary="true" globalOnly="true" />
 
-	<p:fieldset id="fieldsetColDadosPessoaisView" toggleable="true" legend="Dados Pessoais">
+	<p:fieldset id="fieldsetColDadosPessoaisView" toggleable="true">
 
 		<div class="org-form">
 			<h:outputLabel styleClass="labelForm" value="Matrícula: " />
@@ -80,7 +80,7 @@
 		</div>
 	</p:fieldset>
 
-	<p:fieldset id="fieldsetColDadosProfissionaisView" toggleable="true" legend="Dados Profissionais">
+	<p:fieldset id="fieldsetColDadosProfissionaisView" toggleable="true">
 
 		<div class="org-form">
 			<h:outputLabel styleClass="labelForm" value="Empresa: " />
@@ -136,7 +136,7 @@
 
 	<div class="brForm" />
 
-	<div class="org-form" style="margin-top: 30px; width: -moz-available;">
+	<div id="tabColIncludeView" class="org-form" style="margin-top: 30px; width: -moz-available;">
 		<ui:include src="/pages/view/colaborador/colaboradorTabIncludeView.xhtml"></ui:include>
 	</div>
 

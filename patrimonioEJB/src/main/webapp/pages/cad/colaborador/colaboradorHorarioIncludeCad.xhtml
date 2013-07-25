@@ -27,7 +27,7 @@ xmlns:pe="http://primefaces.org/ui/extensions">
 					<h:outputLabel styleClass="labelForm" value="Manhã Entrada: "/>
 					<p:spacer styleClass="spacerForm" />
 					<p:calendar id="horaManhaInicio" value="#{colaboradorViewMB.colaborador.horaManhaInicio}" 
-								pattern="HH:mm" timeOnly="true" styleClass="calendarSmall" readonlyInput="true" timeZone="GMT+1" locale="pt" binding="#{colaboradorViewMB.calDiaIni}" disabled="true">
+								pattern="HH:mm" timeOnly="true" styleClass="calendarSmall" readonlyInput="true" timeZone="GMT-3" locale="pt" binding="#{colaboradorViewMB.calDiaIni}" disabled="true">
 						<f:converter converterId="com.patrimonio.converter.TimeConverter"/>
 					</p:calendar>
 					<p:message id="msgHoraManhaInicio" for="horaManhaInicio" display="icon" />
@@ -38,7 +38,7 @@ xmlns:pe="http://primefaces.org/ui/extensions">
 					<h:outputLabel styleClass="labelForm" value="Manhã Saída: " />
 					<p:spacer styleClass="spacerForm" />
 					<p:calendar id="horaManhaFim" value="#{colaboradorViewMB.colaborador.horaManhaFim}" 
-								pattern="HH:mm" timeOnly="true" styleClass="calendarSmall" readonlyInput="true" timeZone="GMT+1" locale="pt" binding="#{colaboradorViewMB.calDiaFim}" disabled="true">
+								pattern="HH:mm" timeOnly="true" styleClass="calendarSmall" readonlyInput="true" timeZone="GMT-3" locale="pt" binding="#{colaboradorViewMB.calDiaFim}" disabled="true">
 						<f:converter converterId="com.patrimonio.converter.TimeConverter"/>
 					</p:calendar>
 					<p:message id="msgHoraManhaFim" for="horaManhaFim" display="icon" />
@@ -49,7 +49,7 @@ xmlns:pe="http://primefaces.org/ui/extensions">
 					<h:outputLabel styleClass="labelForm" value="Tarde Entrada: " />
 					<p:spacer styleClass="spacerForm" />
 					<p:calendar id="horaTardeInicio" value="#{colaboradorViewMB.colaborador.horaTardeInicio}"  
-								pattern="HH:mm" timeOnly="true" styleClass="calendarSmall" readonlyInput="true" timeZone="GMT+1" locale="pt" binding="#{colaboradorViewMB.calTardeIni}" disabled="true">
+								pattern="HH:mm" timeOnly="true" styleClass="calendarSmall" readonlyInput="true" timeZone="GMT-3" locale="pt" binding="#{colaboradorViewMB.calTardeIni}" disabled="true">
 						<f:converter converterId="com.patrimonio.converter.TimeConverter"/>
 					</p:calendar>
 					<p:message id="msgHoraTardeInicio" for="horaTardeInicio" display="icon" />
@@ -60,7 +60,7 @@ xmlns:pe="http://primefaces.org/ui/extensions">
 					<h:outputLabel styleClass="labelForm" value="Tarde Saída: " />
 					<p:spacer styleClass="spacerForm" />
 					<p:calendar id="horaTardeFim" value="#{colaboradorViewMB.colaborador.horaTardeFim}" 
-								pattern="HH:mm" timeOnly="true" styleClass="calendarSmall" readonlyInput="true" timeZone="GMT+1" locale="pt" binding="#{colaboradorViewMB.calTardeFim}" disabled="true">
+								pattern="HH:mm" timeOnly="true" styleClass="calendarSmall" readonlyInput="true" timeZone="GMT-3" locale="pt" binding="#{colaboradorViewMB.calTardeFim}" disabled="true">
 						<f:converter converterId="com.patrimonio.converter.TimeConverter"/>
 					</p:calendar>
 					<p:message id="msgHoraTardeFim" for="horaTardeFim" display="icon" />
@@ -71,7 +71,7 @@ xmlns:pe="http://primefaces.org/ui/extensions">
 					<h:outputLabel styleClass="labelForm" value="Noite Entrada: " />
 					<p:spacer styleClass="spacerForm" />
 					<p:calendar id="horaNoiteInicio" value="#{colaboradorViewMB.colaborador.horaNoiteInicio}" 
-								pattern="HH:mm" timeOnly="true" styleClass="calendarSmall" readonlyInput="true" timeZone="GMT+1" locale="pt" binding="#{colaboradorViewMB.calNoiteIni}" disabled="true">
+								pattern="HH:mm" timeOnly="true" styleClass="calendarSmall" readonlyInput="true" timeZone="GMT-3" locale="pt" binding="#{colaboradorViewMB.calNoiteIni}" disabled="true">
 						<f:converter converterId="com.patrimonio.converter.TimeConverter"/>
 					</p:calendar>
 					<p:message id="msgHoraNoiteInicio" for="horaNoiteInicio" display="icon" />
@@ -82,7 +82,7 @@ xmlns:pe="http://primefaces.org/ui/extensions">
 					<h:outputLabel styleClass="labelForm" value="Noite Saída: " />
 					<p:spacer styleClass="spacerForm" />
 					<p:calendar id="horaNoiteFim" value="#{colaboradorViewMB.colaborador.horaNoiteFim}" 
-								pattern="HH:mm" timeOnly="true" styleClass="calendarSmall" readonlyInput="true" timeZone="GMT+1" locale="pt" binding="#{colaboradorViewMB.calNoiteFim}" disabled="true">
+								pattern="HH:mm" timeOnly="true" styleClass="calendarSmall" readonlyInput="true" timeZone="GMT-3" locale="pt" binding="#{colaboradorViewMB.calNoiteFim}" disabled="true">
 						<f:converter converterId="com.patrimonio.converter.TimeConverter"/>
 					</p:calendar>
 					<p:message id="msgHoraNoiteFim" for="horaNoiteFim" display="icon" />

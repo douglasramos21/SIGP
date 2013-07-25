@@ -68,7 +68,7 @@ public class SelectOneMenuConverter implements Converter {
 					obj = (TipoDocumento) value;
 				} else if (obj instanceof TipoHorario) {
 					obj = (TipoHorario) value;
-				} else if (obj instanceof TipoHorario) {
+				} else if (obj instanceof TipoVisto) {
 					obj = (TipoVisto) value;
 				}
 

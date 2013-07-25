@@ -78,7 +78,7 @@
 		<div class="org-form">
 			<h:outputLabel styleClass="labelForm" value="E-mail " />
 			<p:spacer styleClass="spacerForm" />
-			<p:inputText id="emailAlternativoCad" value="#{colaboradorViewMB.colaborador.email}">
+			<p:inputText id="emailAlternativoCad" value="#{colaboradorViewMB.colaborador.emailAlternativo}">
 				<f:validator validatorId="com.patrimonio.validator.EmailValidator" />
 			</p:inputText>
 			<p:message id="msgEmailAlternativo" for="emailAlternativoCad" showSummary="true" showDetail="false" />

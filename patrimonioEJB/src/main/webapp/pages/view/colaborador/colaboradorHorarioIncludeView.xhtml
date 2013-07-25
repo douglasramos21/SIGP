@@ -7,7 +7,7 @@
 	xmlns:pe="http://primefaces.org/ui/extensions">
 	
 	
-		<p:fieldset toggleable="true" toggleSpeed="500"  >
+		<p:fieldset toggleable="true" toggleSpeed="500" >
 			<div class="org-form">
 				<h:outputLabel styleClass="labelForm" value="Horário: " />
 				<p:spacer styleClass="spacerForm" />
@@ -24,7 +24,7 @@
 									<h:outputLabel styleClass="labelForm" value="Manhã Entrada: " />
 									<p:spacer styleClass="spacerForm" />
 									<p:inputText id="horaManhaInicio" value="#{colaboradorViewMB.colaborador.horaManhaInicio}" disabled="true" styleClass="inputSmall">
-										<f:convertDateTime pattern="HH:mm" timeStyle="default" type="time" timeZone="GMT+1"/>
+										<f:convertDateTime pattern="HH:mm" timeStyle="default" type="time" timeZone="GMT-3"/>
 									</p:inputText>
 									<p:message id="msgHoraManhaInicio" for="horaManhaInicio" display="icon" />
 								</div>
@@ -34,7 +34,7 @@
 									<h:outputLabel styleClass="labelForm" value="Manhã Saída: " />
 									<p:spacer styleClass="spacerForm" />
 									<p:inputText id="horaManhaFim" value="#{colaboradorViewMB.colaborador.horaManhaFim}" disabled="true" styleClass="inputSmall">
-										<f:convertDateTime pattern="HH:mm" timeStyle="default" type="time" timeZone="GMT+1"/>
+										<f:convertDateTime pattern="HH:mm" timeStyle="default" type="time" timeZone="GMT-3"/>
 									</p:inputText>
 									<p:message id="msgHoraManhaFim" for="horaManhaFim" display="icon" />
 								</div>
@@ -44,7 +44,7 @@
 									<h:outputLabel styleClass="labelForm" value="Tarde Entrada: " />
 									<p:spacer styleClass="spacerForm" />
 									<p:inputText id="horaTardeInicio" value="#{colaboradorViewMB.colaborador.horaTardeInicio}" disabled="true" styleClass="inputSmall">
-										<f:convertDateTime pattern="HH:mm" timeStyle="default" type="time" timeZone="GMT+1"/>
+										<f:convertDateTime pattern="HH:mm" timeStyle="default" type="time" timeZone="GMT-3"/>
 									</p:inputText>
 									<p:message id="msgHoraTardeInicio" for="horaTardeInicio" display="icon" />
 								</div>
@@ -54,7 +54,7 @@
 									<h:outputLabel styleClass="labelForm" value="Tarde Saída: " />
 									<p:spacer styleClass="spacerForm" />
 									<p:inputText id="horaTardeFim" value="#{colaboradorViewMB.colaborador.horaTardeFim}" disabled="true" styleClass="inputSmall">
-										<f:convertDateTime pattern="HH:mm" timeStyle="default" type="time" timeZone="GMT+1"/>
+										<f:convertDateTime pattern="HH:mm" timeStyle="default" type="time" timeZone="GMT-3"/>
 									</p:inputText>
 									<p:message id="msgHoraTardeFim" for="horaTardeFim" display="icon" />
 								</div>
@@ -64,7 +64,7 @@
 									<h:outputLabel styleClass="labelForm" value="Noite Entrada: " />
 									<p:spacer styleClass="spacerForm" />
 									<p:inputText id="horaNoiteInicio" value="#{colaboradorViewMB.colaborador.horaNoiteInicio}" disabled="true" styleClass="inputSmall">
-										<f:convertDateTime pattern="HH:mm" timeStyle="default" type="time" timeZone="GMT+1"/>
+										<f:convertDateTime pattern="HH:mm" timeStyle="default" type="time" timeZone="GMT-3"/>
 									</p:inputText>
 									<p:message id="msgHoraNoiteInicio" for="horaNoiteInicio" display="icon" />
 								</div>
@@ -74,7 +74,7 @@
 									<h:outputLabel styleClass="labelForm" value="Noite Saída: " />
 									<p:spacer styleClass="spacerForm" />
 									<p:inputText id="horaNoiteFim" value="#{colaboradorViewMB.colaborador.horaNoiteFim}" disabled="true" styleClass="inputSmall">
-										<f:convertDateTime pattern="HH:mm" timeStyle="default" type="time" timeZone="GMT+1"/>
+										<f:convertDateTime pattern="HH:mm" timeStyle="default" type="time" timeZone="GMT-3"/>
 									</p:inputText>
 									<p:message id="msgHoraNoiteFim" for="horaNoiteFim" display="icon" />
 								</div>

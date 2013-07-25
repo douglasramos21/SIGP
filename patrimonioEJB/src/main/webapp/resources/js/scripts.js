@@ -8,11 +8,11 @@ function editTableRow($dataTable) {
 		$(this).click();
 	});
 
-	$dataTable.last().find('tr').last().each(function() {
-		$(this).find('select').first().each(function() {
-			changeClassHeader(this);
-		});
-	});
+//	$dataTable.last().find('tr').last().each(function() {
+//		$(this).find('select').first().each(function() {
+//			changeClassHeader(this);
+//		});
+//	});
 }
 
 function handleLoginRequest(xhr, status, args) {
@@ -40,17 +40,23 @@ function changeClassHeader(element) {
 
 	$tipoDocumento = $(jqClientId(elementStr.substring(0, 34)+ ":tipoDocumentoCad"));
 
-	$classificacaoDoc = $(jqClientId(elementStr.substring(0, 34) + ":docClass"));
-	$tipoVisto = $(jqClientId(elementStr.substring(0, 34) + ":docTipoVisto"));
+	$docClassOutput = $(jqClientId(elementStr.substring(0, 34) + ":docClassOutput"));
+	$docClassInput = $(jqClientId(elementStr.substring(0, 34) + ":docClassInput"));
+	$tipoVistoOutput = $(jqClientId(elementStr.substring(0, 34) + ":docTipoVistoOutput"));
+	$tipoVistoInput = $(jqClientId(elementStr.substring(0, 34) + ":docTipoVistoInput"));
 
 	if ($tipoDocumento.find(":selected").text() === "Visto") {
-		$classificacaoDoc.css("display", "none");
-		$tipoVisto.css("display", "inline");
+		$docClassOutput.css("display", "none");
+		$docClassInput.css("display", "none");
+		$tipoVistoOutput.css("display", "inline");
+		$tipoVistoInput.css("display", "inline");
 		return;
 	}
 
-	$classificacaoDoc.css("display", "inline");
-	$tipoVisto.css("display", "none");
+	$docClassOutput.css("display", "inline");
+	$docClassInput.css("display", "inline");
+	$tipoVistoOutput.css("display", "none");
+	$tipoVistoInput.css("display", "none");
 
 }
 
@@ -58,16 +64,11 @@ function jqClientId(elementStr) {
 	return "#" + elementStr.replace(/:/g, "\\\:");
 }
 
-function clickPencil($element) {
+function clickPencil() {
 	
-	$pencil = $element.find('span.ui-icon-pencil');
-	
-	if(typeof $pencil.attr('style') === 'undefined'){
-		return true;
-//		changeClassHeader($element.parent().parent().siblings().first().find('select').first());
-	}
-	
-	return false;
+	$pencil = $('tr').find("span.ui-icon-pencil[style*='display: none']");
+
+	changeClassHeader($pencil.parent().parent().siblings().first().find('select').first().get(0));
 	
 }
 

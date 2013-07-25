@@ -1,12 +1,13 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <ui:composition xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:p="http://primefaces.org/ui">
 
-	<p:fieldset toggleable="true" toggleSpeed="500" legend="" >
+	<p:fieldset toggleable="true" toggleSpeed="500">
 	
-			<p:dataTable rowIndexVar="row" var="documento" value="#{colaboradorViewMB.listaDocumentos}" id="documentos" editable="true" lazy="true" style=" width: 75%">
+			<p:dataTable var="documento" value="#{colaboradorViewMB.listaDocumentos}" id="documentos" editable="true" lazy="true" style=" width: 80%" rowIndexVar="row">
 
-				<p:ajax event="rowEditCancel" listener="#{colaboradorViewMB.removeDocumentoRow}" update="@this" process="@this" />
-				<p:ajax event="rowEdit" listener="#{colaboradorViewMB.removeDocumentoRow}" update="@this" process="@this"/>
+				<p:ajax event="rowEditInit" oncomplete="clickPencil();" async="true"/>
+				<p:ajax event="rowEditCancel" listener="#{colaboradorViewMB.removeDocumentoRowEditCancel}" process="@this" />
+				<p:ajax event="rowEdit" listener="#{colaboradorViewMB.removeDocumentoRowEdit}" process="@this"/>
 
 				<f:facet name="header">  
             		Documentos 
@@ -18,8 +19,10 @@
 							<h:outputText value="#{documento.tipoDocumento.nome}" />
 						</f:facet>
 						<f:facet name="input">
-							<h:selectOneMenu id="tipoDocumentoCad" value="#{documento.tipoDocumento}" converter="com.patrimonio.converter.SelectOneMenuConverter">
-								<f:selectItems value="#{colaboradorViewMB.listTipoDocumento}" var="tipoDocumento" itemLabel="#{tipoDocumento.nome}" itemValue="#{tipoDocumento}"/>
+							<h:selectOneMenu id="tipoDocumentoCad" value="#{documento.tipoDocumento}" converter="com.patrimonio.converter.SelectOneMenuConverter"
+								onchange="changeClassHeader(this)">
+								<f:selectItems value="#{colaboradorViewMB.listTipoDocumento}" var="tipoDocumento"
+												itemLabel="#{tipoDocumento.nome}" itemValue="#{tipoDocumento}"/>
 							</h:selectOneMenu>
 						</f:facet>
 					</p:cellEditor>
@@ -48,17 +51,18 @@
 						</f:facet>
 					</p:cellEditor>
 				</p:column>
-
+				
 				<p:column headerText="Classificação" style="width:10%" id="classDocCad">
 					<p:cellEditor>
 						<f:facet name="output">
-							<h:outputText value="#{documento.classificacaoDocumento}"/>
+							<h:outputText id="docTipoVistoOutput" value="#{documento.tipoVisto.sigla}"/>
+							<h:outputText id="docClassOutput" value="#{documento.classificacaoDocumento}"/>
 						</f:facet>
-						<f:facet name="input">
-							<p:inputText id="docClass" value="#{documento.classificacaoDocumento}"/>
-							<h:selectOneMenu id="docTipoVisto" value="#{documento.tipoVisto}" converter="com.patrimonio.converter.SelectOneMenuConverter">
-								<f:selectItems value="#{colaboradorViewMB.listTipoVisto}" var="tipoVisto" itemValue="#{tipoVisto}" itemLabel="#{tipoVisto.sigla}" />
+						<f:facet name="input" >
+							<h:selectOneMenu  id="docTipoVistoInput" value="#{documento.tipoVisto}" converter="com.patrimonio.converter.SelectOneMenuConverter">
+								<f:selectItems value="#{colaboradorViewMB.listTipoVisto}" var="tipoVisto" itemValue="#{tipoVisto}" itemLabel="#{tipoVisto.sigla}"/>
 							</h:selectOneMenu>
+							<p:inputText id="docClassInput" value="#{documento.classificacaoDocumento}"/>
 						</f:facet>
 					</p:cellEditor>
 				</p:column>
@@ -69,7 +73,8 @@
 							<h:outputText value="#{documento.dataEmissaoFormatada}" />
 						</f:facet>
 						<f:facet name="input">
-							<p:calendar styleClass="inputSmall" value="#{documento.dataEmissao}" locale="pt" showButtonPanel="true" navigator="true" id="dataEmissao" pattern="dd/MM/yyyy" effect="slide" />
+							<p:calendar styleClass="inputSmall" value="#{documento.dataEmissao}" locale="pt" showButtonPanel="true" 
+										navigator="true" id="dataEmissao" pattern="dd/MM/yyyy" effect="slide" />
 						</f:facet>
 					</p:cellEditor>
 				</p:column>
@@ -80,30 +85,29 @@
 							<h:outputText value="#{documento.dataValidadeFormatada}" />
 						</f:facet>
 						<f:facet name="input">
-							<p:calendar styleClass="inputSmall" value="#{documento.dataValidade}" locale="pt" showButtonPanel="true" navigator="true" id="dataValidade" pattern="dd/MM/yyyy" effect="slide" />
+							<p:calendar styleClass="inputSmall" value="#{documento.dataValidade}" locale="pt" showButtonPanel="true" 
+										navigator="true" id="dataValidade" pattern="dd/MM/yyyy" effect="slide" />
 						</f:facet>
 					</p:cellEditor>
 				</p:column>
 
 				<p:column style="width:10%">
 					<f:facet name="header">
-						<p:commandButton  	id="addDocButton"
-											actionListener="#{colaboradorViewMB.removeDocumentoRow}" action="#{colaboradorViewMB.addDocumentoRow}" 
+						<p:commandButton  	id="addDocButton" 
+											actionListener="#{colaboradorViewMB.removeDocumentoRow()}" action="#{colaboradorViewMB.addDocumentoRow}" 
 											oncomplete="editTableRow($('#tabViewColaboradorCad\\:documentos'));" 
 											icon="ui-icon-circle-plus" update="documentos" process="@this" 
 											style="background: none repeat scroll 0 0 transparent; border: medium none;" />
 					</f:facet>
 					
-					<p:commandLink actionListener="#{colaboradorViewMB.changeClassDocumento(documento)}">
-	           			<p:rowEditor/>
-	           		</p:commandLink>
-
-					
+		           	<p:rowEditor/>
+		           	
 				</p:column>
 				
-				<p:column headerText="Exclusão">
-						<p:commandButton  	actionListener="#{colaboradorViewMB.removeRowOnButton(documento)}" 
-											icon="ui-icon-trash" update="documentos" process="@this" 
+				<p:column headerText="Exclusão" style="width:5%">
+						<p:commandButton 	id="removeDocButton"
+											actionListener="#{colaboradorViewMB.removeRowOnButton(documento)}" immediate="true" 
+											icon="ui-icon-trash" update="documentos" process="@this"
 											style="background: none repeat scroll 0 0 transparent; border: medium none;" />
 				</p:column>
 

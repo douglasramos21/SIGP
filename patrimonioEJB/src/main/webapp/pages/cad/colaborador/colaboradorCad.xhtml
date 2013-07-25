@@ -7,15 +7,13 @@
 
 	<p:toolbar styleClass="toolbar">
 		<p:toolbarGroup>
-			<p:commandButton id="save" actionListener="#{colaboradorViewMB.save()}" icon="save24" process="masterDetail" title="Salvar" update="@form">
-				<pe:selectDetailLevel step="-1" />
-			</p:commandButton>
-			<p:separator />
-			<span/>
-			<p:commandButton id="cancel" actionListener="#{colaboradorViewMB.cancel()}" icon="cancel24" process="@this" title="Cancelar">
+			<p:commandButton id="save" actionListener="#{colaboradorViewMB.save()}" icon="save24" process="masterDetail" update="@form" title="Salvar">
 				<pe:selectDetailLevel step="-1"/>
 			</p:commandButton>
-			<span/>
+			<p:separator />
+			<p:commandButton id="cancel" actionListener="#{colaboradorViewMB.cancel()}" icon="cancel24" title="Cancelar" process="@this" immediate="true">
+				<pe:selectDetailLevel step="-1"/>
+			</p:commandButton>
 		</p:toolbarGroup>
 	</p:toolbar>
 
@@ -24,7 +22,7 @@
 
 	<p:messages id="msgsCad" showSummary="true" globalOnly="true"/>
 	
-	<p:fieldset id="fieldsetColDadosPessoaisCad" toggleable="true" legend="Dados Pessoais">
+	<p:fieldset id="fieldsetColDadosPessoaisCad" toggleable="true">
 	
 		<div class="org-form">
 			<h:outputLabel styleClass="labelForm" value="Matrícula: " />
@@ -36,7 +34,7 @@
 			<h:outputLabel styleClass="labelForm" value="Nome Completo: " />
 			<p:spacer styleClass="spacerForm" />
 			<p:inputText id="nomeCad" value="#{colaboradorViewMB.colaborador.nome}" styleClass="inputLarge" required="true">
-				<p:ajax event="blur" listener="#{colaboradorViewMB.loadApelido()}" update="apelidoCad" onstart="upppercase($('#nomeCad'));"/>
+				<p:ajax event="blur" listener="#{colaboradorViewMB.loadApelido()}" update="apelidoCad" process="@this" onstart="upppercase($('#nomeCad'));" partialSubmit="true"/>
 			</p:inputText>
 		</div>
 	
@@ -83,7 +81,7 @@
 	
 	</p:fieldset>
 	
-	<p:fieldset id="fieldsetColDadosProfissionaisCad" toggleable="true" legend="Dados Profissionais" >
+	<p:fieldset id="fieldsetColDadosProfissionaisCad" toggleable="true">
 	
 		<div class="org-form">
 			<h:outputLabel styleClass="labelForm" value="Empresa: " />
@@ -152,7 +150,7 @@
 
 	<div class="brForm" />
 
-	<div class="org-form" style="margin-top: 30px; width: -moz-available;">
+	<div id="tabColIncludeCad" class="org-form" style="margin-top: 30px; width: -moz-available;">
 		<ui:include src="/pages/cad/colaborador/colaboradorTabIncludeCad.xhtml" />
 	</div>
 
